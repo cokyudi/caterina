@@ -10,15 +10,15 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+                        <div class="form-group{{ $errors->has('nama_user') ? ' has-error' : '' }}">
+                            <label for="nama_user" class="col-md-4 control-label">Nama</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="nama_user" type="text" class="form-control" name="nama_user" value="{{ old('nama_user') }}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('nama_user'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('nama_user') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -33,6 +33,20 @@
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('no_telp') ? ' has-error' : '' }}">
+                            <label for="no_telp" class="col-md-4 control-label">No. Telepon</label>
+
+                            <div class="col-md-6">
+                                <input id="no_telp" type="text" class="form-control" name="no_telp" value="{{ old('no_telp') }}" required>
+
+                                @if ($errors->has('no_telp'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('no_telp') }}</strong>
                                     </span>
                                 @endif
                             </div>
