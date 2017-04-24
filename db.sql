@@ -95,10 +95,13 @@ CREATE TABLE `transaksi_item` (
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `nama_user` varchar(60) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `password` varchar(32) NOT NULL,
   `no_telp` varchar(16) NOT NULL,
   `status_catering` int(1) NOT NULL DEFAULT '0',
   `nama_catering` varchar(60) DEFAULT NULL,
   `deskripsi` text,
+  `foto_catering` text,
   `no_telp_catering` varchar(16) DEFAULT NULL,
   `alamat_catering` varchar(200) DEFAULT NULL,
   `status_user` int(1) NOT NULL DEFAULT '1',
