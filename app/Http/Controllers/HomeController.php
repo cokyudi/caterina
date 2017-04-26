@@ -23,7 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data['title'] = 'Caterina';
+        return view('home', $data);
     }
 
     public function cari()
