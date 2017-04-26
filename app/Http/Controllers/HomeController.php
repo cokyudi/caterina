@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Home;
 
 class HomeController extends Controller
 {
@@ -23,8 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $data['card'] = Home::select('*')->where('status_catering','=',1)->get();
         $data['title'] = 'Caterina';
-        return view('home', $data);
+        return view('home')->with($data);;
     }
 
     public function cari()
