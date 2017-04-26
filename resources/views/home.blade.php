@@ -46,6 +46,7 @@
 
     <!--First row-->
     <div class="row wow">
+        @foreach($card as $a)
         <!--First column-->
         <div class="col-lg-4 wow fadeIn" data-wow-delay="0.2s">
             <!--Card-->
@@ -63,11 +64,10 @@
                 <!--Card content-->
                 <div class="card-block">
                     <!--Title-->
-                    <h4 class="card-title"><b>Warung Mad Dog</b></h4>
+                    <h4 class="card-title"><b>{{ $a->nama_catering }}</b></h4>
                     <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <p class="card-text">Alamat</p>
-                    <p class="card-text">No HP</p>
+                    <p class="card-text">{{ $a->deskripsi }}</p>
+                    <p class="card-text">{{ $a->alamat_catering }}</p>
                     <div class="read-more">
                         <a href="#!" class="btn btn-brown">Read more</a>
                     </div>
@@ -77,6 +77,7 @@
             </div>
             <!--/.Card-->
         </div>
+    @endforeach
         <!--/.First column-->
 
     </div>
