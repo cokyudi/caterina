@@ -36,9 +36,7 @@
     <!--Page heading-->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="h1-responsive">Culinary blog
-                <small class="text-muted">recipes for launches and desserts </small>
-            </h1>
+            <h1 class="h1-responsive">Catering</h1>
         </div>
     </div>
     <!--/.Page heading-->
@@ -69,7 +67,7 @@
                     <p class="card-text">{{ $a->deskripsi }}</p>
                     <p class="card-text">{{ $a->alamat_catering }}</p>
                     <div class="read-more">
-                        <a href="#!" class="btn btn-brown">Read more</a>
+                        <a href="#!" class="btn btn-primary">Read more</a>
                     </div>
                 </div>
                 <!--/.Card content-->
