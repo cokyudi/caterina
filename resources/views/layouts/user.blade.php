@@ -131,7 +131,7 @@
     <footer class="page-footer center-on-small-only">
         <div class="footer-copyright">
             <div class="container-fluid">
-                © 2015 Copyright: <a href="http://www.MDBootstrap.com"> MDBootstrap.com </a>
+                © 2017 Copyright: <a href="http://www.MDBootstrap.com"> CATERINA </a>
             </div>
         </div>
     </footer>

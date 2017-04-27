@@ -11,7 +11,7 @@
                     <div class="col-md-12">
                         <div class="md-form">
                             <input type="text" id="form1" class="form-control">
-                            <label for="form1">Your city</label>
+                            <label for="form1">Cari Nama Catering...</label>
                         </div>
                     </div>
                     <div class="col-md-6">
