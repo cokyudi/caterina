@@ -1,1 +1,62 @@
-/* YOUR CUSTOM STYLES */
+.input-custom {
+  background-color: white;
+  border-bottom: 0px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 4px 3%;
+  color: #333;
+  font-size: 14px;
+  width: 94%; }
+
+.input-custom:focus {
+  background-color: white;
+  border-bottom: 1px solid #999 !important;
+  box-shadow: none !important; }
+
+.navbar {
+  background-color: #E74111; }
+
+.banner {
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  height: 500px; }
+  .banner input[type=text] {
+    background-color: white;
+    border-bottom: 0px;
+    border-radius: 4px;
+    padding: 8px 3%;
+    width: 94%; }
+  .banner input[type=text]:focus {
+    background-color: white;
+    border-bottom: 0px !important;
+    box-shadow: none !important; }
+
+.btn {
+  padding: 8px 30px;
+  font-size: 14px; }
+
+.btn-theme {
+  background-color: #FFD302;
+  color: #E74111 !important;
+  font-weight: 600 !important; }
+
+.card {
+  margin-bottom: 16px; }
+  .card .view {
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    height: 250px; }
+  .card .card-title {
+    margin-bottom: 8px; }
+  .card .card-text {
+    margin-top: 12px; }
+  .card .card-text-small {
+    font-size: 13px;
+    color: #666;
+    margin: 2px 0; }

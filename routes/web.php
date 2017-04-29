@@ -25,3 +25,8 @@ Route::get('/home', 'HomeController@index');
 Route::get('/cari', 'HomeController@cari');
 Route::get('/catering', 'CateringController@catering');
 Route::get('/menu', 'CateringController@menu');
+
+// CATERING
+Route::get('/dashboard/menu/', 'Catering\MenuController@index');
+Route::get('/dashboard/menu/{id}', 'Catering\MenuController@detail');
+Route::get('/dashboard/item/', 'Catering\ItemController@index');
