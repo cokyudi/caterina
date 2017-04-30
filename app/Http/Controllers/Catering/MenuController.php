@@ -20,6 +20,7 @@ class MenuController extends Controller
 
     public function detail($id)
     {
-        # code...
+        $data['title'] = 'Nasi Goreng';
+        return view('catering.detailItem', $data);
     }
 }
