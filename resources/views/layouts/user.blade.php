@@ -10,9 +10,10 @@
 
     <title>{{ $title }}</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/mdb.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     <script>
         window.Laravel = {!! json_encode([
@@ -20,66 +21,11 @@
         ]) !!};
     </script>
 
-    <!-- Template styles -->
-    <style>
-        /* TEMPLATE STYLES */
-
-        html,
-        body,
-        .view {
-            height: 100%;
-        }
-        /* Navigation*/
-
-        .navbar {
-            background-color: #4285F4;
-        }
-
-        .scrolling-navbar {
-            -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
-            -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
-            transition: background .5s ease-in-out, padding .5s ease-in-out;
-        }
-
-        .top-nav-collapse {
-            background-color: #4285F4;
-        }
-
-        footer.page-footer {
-            background-color: #3c4f74;
-            margin-top: 2rem;
-        }
-
-        @media only screen and (max-width: 768px) {
-            .navbar {
-                background-color: #1C2331;
-            }
-        }
-        /*Call to action*/
-
-        .flex-center {
-            color: #fff;
-        }
-
-        .view {
-            background: url("http://mdbootstrap.com/img/Photos/Horizontal/Work/full page/img%20(2).jpg")no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-        /*Contact section*/
-
-        #contact .fa {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #1C2331;
-        }
-    </style>
+    @yield('style')
 
 </head>
 
-<body>
+<body class="grey lighten-4">
 
     <!--Navbar-->
     <nav class="navbar navbar-toggleable-md navbar-dark fixed-top scrolling-navbar">
@@ -92,8 +38,11 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarNav1">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ URL::to('/') }}">Home</a>
+                    </li>
                     @if (Auth::guest())
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Login</a>
                         </li>
                         <li class="nav-item">
@@ -124,7 +73,6 @@
             </div>
         </div>
     </nav>
-    <!--/.Navbar-->
 
     @yield('content')
 
@@ -149,6 +97,8 @@
     <script>
         new WOW().init();
     </script>
+
+    @yield('javascript')
 
 
 </body>

@@ -1,27 +1,37 @@
 @extends('layouts.user')
 
+@section('style')
+    <style media="screen">
+        .banner {
+            background-image: url("{{ asset('img/big_picture.jpg') }}");
+        }
+        .card .view {
+            background-image: url("{{ asset('img/big_picture.jpg') }}");
+        }
+    </style>
+@endsection
+
 @section('content')
-<div class="view hm-black-strong">
+<div class="view hm-black-strong banner">
     <div class="full-bg-img flex-center">
-        <ul>
+        <ul class="white-text">
             <li>
-                <h1 class="h1-responsive wow fadeInUp title"><strong>Cari Catering</strong></h1></li>
+                <h2 class="h2-responsive wow fadeInUp title"><strong>Cari Catering</strong></h2>
             <li>
                 <div class="row wow fadeIn" data-wow-delay="0.4s">
+                    <div class="col-sm-9" style="padding: 0 4px">
+                        <div class="md-form">
+                            <input type="text" placeholder="Cari nama catering">
+                        </div>
+                    </div>
+                    <div class="col-sm-3" style="padding: 0 4px">
+                        <div class="md-form">
+                            <button class="btn btn-lg btn-amber btn-block" style="margin-top:1px">Cari</button>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="md-form">
-                            <input type="text" id="form1" class="form-control">
-                            <label for="form1">Cari Nama Catering...</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="md-form">
-                            <button class="btn btn-lg btn-danger">Cari</button>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="md-form">
-                            <button class="btn btn-lg btn-danger">Cari didekat saya</button>
+                            <button class="btn btn-lg btn-theme">Catering dekat saya</button>
                         </div>
                     </div>
                 </div>
@@ -30,57 +40,33 @@
     </div>
 </div>
 
-<!--Main layout-->
 <div class="container">
 
-    <!--Page heading-->
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="h1-responsive">Culinary blog
-                <small class="text-muted">recipes for launches and desserts </small>
-            </h1>
-        </div>
+    <div class="divider-new">
+        <h2 class="h2-responsive wow fadeIn">Catering</h2>
     </div>
-    <!--/.Page heading-->
-    <hr>
 
-    <!--First row-->
     <div class="row wow">
         @foreach($card as $a)
-        <!--First column-->
-        <div class="col-lg-4 wow fadeIn" data-wow-delay="0.2s">
-            <!--Card-->
+        <div class="col-lg-4 col-md-6 wow fadeIn" data-wow-delay="0.2s">
             <div class="card">
-
-                <!--Card image-->
                 <div class="view overlay hm-white-slight">
-                    <img src="http://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(43).jpg" class="img-fluid" alt="">
                     <a href="#!">
-                        <div class="mask"></div>
+                        <div class="mask waves-effect waves-light"></div>
                     </a>
                 </div>
-                <!--/.Card image-->
-
-                <!--Card content-->
                 <div class="card-block">
-                    <!--Title-->
                     <h4 class="card-title"><b>{{ $a->nama_catering }}</b></h4>
-                    <!--Text-->
+                    <p class="card-text-small">{{ $a->alamat_catering }}</p>
+                    <p class="card-text-small">No Telp: {{ $a->no_telp_catering }}</p>
                     <p class="card-text">{{ $a->deskripsi }}</p>
-                    <p class="card-text">{{ $a->alamat_catering }}</p>
-                    <div class="read-more">
-                        <a href="#!" class="btn btn-brown">Read more</a>
+                    <div class="read-more text-center">
+                        <a href="#!" class="btn btn-theme">Lihat catering</a>
                     </div>
                 </div>
-                <!--/.Card content-->
-
             </div>
-            <!--/.Card-->
         </div>
-    @endforeach
-        <!--/.First column-->
-
+        @endforeach
     </div>
 </div>
-<!--/.Main layout-->
 @endsection
