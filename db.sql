@@ -58,6 +58,7 @@ CREATE TABLE `menu` (
   `id_menu` int(11) NOT NULL AUTO_INCREMENT,
   `nama_menu` varchar(30) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `harga_menu` int(6) NOT NULL,
   `status_menu` int(1) NOT NULL,
   PRIMARY KEY (`id_menu`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -72,6 +73,7 @@ CREATE TABLE `menu_item` (
   `id_item` int(11) NOT NULL,
   `required` int(1) NOT NULL,
   `qty_default` int(4) NOT NULL,
+  `jumlah_harga` int(6) NOT NULL,
   PRIMARY KEY (`id_menu_item`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
