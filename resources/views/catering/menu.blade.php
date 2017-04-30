@@ -25,7 +25,7 @@
                     <div class="section"></div>
                 </div>
                 <div class="col-md-4 text-right wow fadeIn" data-wow-delay="0.2s">
-                    <a href="item" class="btn btn-theme">tambah item</a>
+                    <a href="{{ URL::to('dashboard/item') }}" class="btn btn-theme">tambah item</a>
                 </div>
                 <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
                     <div class="card">
