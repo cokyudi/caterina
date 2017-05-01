@@ -36,22 +36,26 @@
                                 <td><input type="text" id="in-harga"></td>
                                 <td><input type="text" id="in-kategori"></td>
                                 <td>
-                                    <a class="btn btn-theme" onclick="addItem()"><i class="icon ion-plus"></i></a>
+                                    <button type="button" class="btn btn-theme" onclick="addItem()"><i class="icon ion-plus"></i></button>
+                                    <input type="hidden" id="in-userId" value="{{ $userId }}">
                                 </td>
                             </tr>
-                            <tr id="item_48">
-                                <th scope="row">1</th>
-                                <td class="nama">Nasi putih</td>
-                                <td class="qty">100</td>
-                                <td class="satuan">gr</td>
-                                <td>Rp. <span class="harga">1000</span></td>
-                                <td class="kategori">Nasi</td>
+                        <?php $i=1; ?>
+                        @foreach($item as $a)
+                            <tr id="item_{{$a->id_item}}">
+                                <th scope="row">{{ $i, $i++ }}</th>
+                                <td class="nama">{{ $a->nama_item }}</td>
+                                <td class="qty">{{ $a->qty }}</td>
+                                <td class="satuan">{{ $a->satuan }}</td>
+                                <td>Rp. <span class="harga">{{ $a->harga }}</span></td>
+                                <td class="kategori">{{ $a->kategori }}</td>
                                 <td>
-                                    <a class="blue-text change-value" onclick="changeValue(48)"><i class="icon ion-edit"></i></a>
-                                    <a class="red-text delete" onclick="deleteItem(48)"><i class="icon ion-close"></i></a>
-                                    <a class="blue-text edit" onclick="editItem(48)" style="display:none"><i class="icon ion-android-send"></i></a>
+                                    <a class="blue-text change-value" onclick="changeValue({{$a->id_item}})"><i class="icon ion-edit"></i></a>
+                                    <a class="red-text delete" onclick="deleteItem({{$a->id_item}})"><i class="icon ion-close"></i></a>
+                                    <a class="blue-text edit" onclick="editItem({{$a->id_item}})" style="display:none"><i class="icon ion-android-send"></i></a>
                                 </td>
                             </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -92,7 +96,6 @@
         var satuan = $('#item_' + id + ' .satuan')
         var harga = $('#item_' + id + ' .harga')
         var kategori = $('#item_' + id + ' .kategori')
-
         var nama_val = $('#item_' + id + ' #in-nama').val()
         var qty_val = $('#item_' + id + ' #in-qty').val()
         var satuan_val = $('#item_' + id + ' #in-satuan').val()
@@ -109,12 +112,42 @@
         $('#item_' + id + ' .edit').hide()
     }
 
-    function addItem(id) {
-        var nama = $('#add_item #in-nama').val()
+    function addItem() {
+        alert('tes')
+        var nama_item = $('#add_item #in-nama').val()
         var qty = $('#add_item #in-qty').val()
         var satuan = $('#add_item #in-satuan').val()
         var harga = $('#add_item #in-harga').val()
         var kategori = $('#add_item #in-kategori').val()
+        var id_user = $('#add_item #in-userId').val()
+        var _token= "{{ csrf_token() }}"
+        var data = {
+            nama_item:nama_item,
+            harga:harga,
+            qty:qty,
+            satuan:satuan,
+            kategori:kategori,
+            _token:_token,
+            id_user:id_user
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method:'POST',
+            url:'{{ route("addItem") }}',
+            data:data,
+            success: function(data){
+                window.location.reload(true);
+            },
+            error: function(data){
+                alert("error");
+            }
+        })
     }
 </script>
 @endsection

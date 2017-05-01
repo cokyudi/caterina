@@ -25,8 +25,11 @@ Route::get('/home', 'HomeController@index');
 Route::get('/cari', 'HomeController@cari');
 Route::get('/catering', 'CateringController@catering');
 Route::get('/menu', 'CateringController@menu');
+Route::get('/logout', 'Auth\LoginController@logout');
 
 // CATERING
 Route::get('/dashboard/menu/', 'Catering\MenuController@index');
 Route::get('/dashboard/menu/{id}', 'Catering\MenuController@detail');
 Route::get('/dashboard/item/', 'Catering\ItemController@index');
+Route::post('/dashboard/item/addItem/', [
+    'as' => 'addItem', 'uses' => 'Catering\ItemController@addItem']);
