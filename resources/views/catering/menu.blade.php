@@ -13,7 +13,11 @@
 <div class="container" style="margin-top:96px">
     <div class="row">
         <div class="col-md-3">
-            menu
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{{ URL::to('dashboard/profil') }}">Profil</a></li>
+                <li class="list-group-item"><a href="{{ URL::to('dashboard/pesanan') }}">Pesanan</a></li>
+                <li class="list-group-item"><a href="{{ URL::to('dashboard/menu') }}">Menu</a></li>
+            </ul>
         </div>
         <div class="col-md-9">
             <div class="row wow">
@@ -30,7 +34,7 @@
                 <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
                     <div class="card">
                         <div class="view overlay hm-white-slight">
-                            <a href="1">
+                            <a href="{{ URL::to('dashboard/menu',1) }}">
                                 <div class="mask waves-effect waves-light"></div>
                             </a>
                         </div>
