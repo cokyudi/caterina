@@ -52,7 +52,7 @@
                                 <td>
                                     <a class="blue-text change-value" onclick="changeValue({{$a->id_item}})"><i class="icon ion-edit"></i></a>
                                     <a class="red-text delete" onclick="deleteItem({{$a->id_item}})"><i class="icon ion-close"></i></a>
-                                    <a class="blue-text edit" onclick="editItem({{$a->id_item}})" style="display:none"><i class="icon ion-android-send"></i></a>
+                                    <a class="blue-text edit" id="update-item" onclick="editItem({{$a->id_item}})" style="display:none"><i class="icon ion-android-send"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -91,25 +91,59 @@
     }
 
     function editItem(id) {
-        var nama = $('#item_' + id + ' .nama')
+        var nama_item = $('#item_' + id + ' .nama')
         var qty = $('#item_' + id + ' .qty')
         var satuan = $('#item_' + id + ' .satuan')
         var harga = $('#item_' + id + ' .harga')
         var kategori = $('#item_' + id + ' .kategori')
+
         var nama_val = $('#item_' + id + ' #in-nama').val()
         var qty_val = $('#item_' + id + ' #in-qty').val()
         var satuan_val = $('#item_' + id + ' #in-satuan').val()
         var harga_val = $('#item_' + id + ' #in-harga').val()
         var kategori_val = $('#item_' + id + ' #in-kategori').val()
+        var id_user = $('#add_item #in-userId').val()
+        var _token= "{{ csrf_token() }}"
+        var _method= "PUT"
+        console.log(id);
+        var data = {
+            nama_item:nama_val,
+            harga:harga_val,
+            qty:qty_val,
+            satuan:satuan_val,
+            kategori:kategori_val,
+            _token:_token,
+            id_user:id_user,
+            _method:_method,
+        }
 
-        nama.html(nama_val)
-        qty.html(qty_val)
-        satuan.html(satuan_val)
-        harga.html(harga_val)
-        kategori.html(kategori_val)
-        $('#item_' + id + ' .change-value').show()
-        $('#item_' + id + ' .delete').show()
-        $('#item_' + id + ' .edit').hide()
+        $('#update-item').one('click',function(event) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                method:'POST',
+                url:'{{ url("/dashboard/item/updateItem") }}/'+id,
+                data:data,
+                success: function(data){
+                    //window.location.reload(true);
+                    nama_item.html(nama_val)
+                    qty.html(qty_val)
+                    satuan.html(satuan_val)
+                    harga.html(harga_val)
+                    kategori.html(kategori_val)
+                    $('#item_' + id + ' .change-value').show()
+                    $('#item_' + id + ' .delete').show()
+                    $('#item_' + id + ' .edit').hide()
+                },
+                error: function(data){
+                    alert("error");
+                }
+            })
+        })
     }
 
     function addItem() {

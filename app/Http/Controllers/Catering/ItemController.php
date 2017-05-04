@@ -28,4 +28,11 @@ class ItemController extends Controller
         //return print_r($request);
         Item::create($request->all());
     }
+
+    public function updateItem(Request $request, $id)
+    {
+        //return print_r($request);
+        Item::create($request->all());
+    }
+
 }
