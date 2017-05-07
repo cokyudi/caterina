@@ -42,7 +42,7 @@
                             </tr>
                         <?php $i=1; ?>
                         @foreach($item as $a)
-                            <tr id="item_{{$a->id_item}}">
+                            <tr id="item_{{$a->id}}">
                                 <th scope="row">{{ $i, $i++ }}</th>
                                 <td class="nama">{{ $a->nama_item }}</td>
                                 <td class="qty">{{ $a->qty }}</td>
@@ -50,9 +50,9 @@
                                 <td>Rp. <span class="harga">{{ $a->harga }}</span></td>
                                 <td class="kategori">{{ $a->kategori }}</td>
                                 <td>
-                                    <a class="blue-text change-value" onclick="changeValue({{$a->id_item}})"><i class="icon ion-edit"></i></a>
-                                    <a class="red-text delete" onclick="deleteItem({{$a->id_item}})"><i class="icon ion-close"></i></a>
-                                    <a class="blue-text edit" onclick="editItem({{$a->id_item}})" style="display:none"><i class="icon ion-android-send"></i></a>
+                                    <a class="blue-text change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
+                                    <a class="red-text delete" onclick="deleteItem({{$a->id}})"><i class="icon ion-close"></i></a>
+                                    <a class="blue-text edit" onclick="editItem({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
                                     <input type="hidden" id="in-userId2" value="{{ $userId }}">
                                 </td>
                             </tr>
@@ -107,7 +107,6 @@
         var _token= "{{ csrf_token() }}";
         console.log(id);
         var data = {
-            //id_item:id,
             nama_item:nama_val,
             harga:harga_val,
             qty:qty_val,
@@ -125,9 +124,9 @@
 
         $.ajax({
             method:'POST',
-            url:'{{ url("/dashboard/item/updateItem") }}/'+id,
+            url:'/dashboard/item/' + id + '/updateItem',
             data:data,
-            success: function(data){
+            success: function(result){
                 nama_item.html(nama_val)
                 qty.html(qty_val)
                 satuan.html(satuan_val)
@@ -138,8 +137,8 @@
                 $('#item_' + id + ' .edit').hide()
                 //window.location.reload(true);
             },
-            error: function(data){
-                alert('error');
+            error: function(result){
+                console.log(result);
             }
         })
     }

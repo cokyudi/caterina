@@ -34,5 +34,5 @@ Route::get('/dashboard/menu/{id}', 'Catering\MenuController@detail');
 Route::get('/dashboard/item/', 'Catering\ItemController@index');
 Route::post('/dashboard/item/addItem/', [
     'as' => 'addItem', 'uses' => 'Catering\ItemController@addItem']);
-Route::post('/dashboard/item/updateItem/{id}', 'Catering\ItemController@updateItem');
+Route::post('/dashboard/item/{id}/updateItem', 'Catering\ItemController@updateItem');
 //Route::patch('/dashboard/item/updateItem/{id}', 'Catering\ItemController@updateItem');

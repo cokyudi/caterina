@@ -31,13 +31,16 @@ class ItemController extends Controller
 
     public function updateItem(Request $request, $id)
     {
-        //$item->nama_item=$request->nama_item;
-        //$item->harga=$request->harga;
-        //$item->qty=$request->qty;
-        //$item->satuan=$request->satuan;
-        //$item->kategori=$request->kategori;
-        //$item->id_user=$request->id_user;
-        //$item->save();
+        $item = Item::find($id);
+        //$item->id_item = $request->id_item;
+        $item->nama_item=$request->nama_item;
+        $item->harga=$request->harga;
+        $item->qty=$request->qty;
+        $item->satuan=$request->satuan;
+        $item->kategori=$request->kategori;
+        $item->id_user=$request->id_user;
+        $item->save();
+        return 'sss';
         //Item::create($request->all());
     }
 
