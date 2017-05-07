@@ -52,7 +52,8 @@
                                 <td>
                                     <a class="blue-text change-value" onclick="changeValue({{$a->id_item}})"><i class="icon ion-edit"></i></a>
                                     <a class="red-text delete" onclick="deleteItem({{$a->id_item}})"><i class="icon ion-close"></i></a>
-                                    <a class="blue-text edit" id="update-item" onclick="editItem({{$a->id_item}})" style="display:none"><i class="icon ion-android-send"></i></a>
+                                    <a class="blue-text edit" onclick="editItem({{$a->id_item}})" style="display:none"><i class="icon ion-android-send"></i></a>
+                                    <input type="hidden" id="in-userId2" value="{{ $userId }}">
                                 </td>
                             </tr>
                         @endforeach
@@ -102,11 +103,11 @@
         var satuan_val = $('#item_' + id + ' #in-satuan').val()
         var harga_val = $('#item_' + id + ' #in-harga').val()
         var kategori_val = $('#item_' + id + ' #in-kategori').val()
-        var id_user = $('#add_item #in-userId').val()
-        var _token= "{{ csrf_token() }}"
-        var _method= "PUT"
+        var id_user = $('#item_' + id + ' #in-userId2').val()
+        var _token= "{{ csrf_token() }}";
         console.log(id);
         var data = {
+            //id_item:id,
             nama_item:nama_val,
             harga:harga_val,
             qty:qty_val,
@@ -114,35 +115,32 @@
             kategori:kategori_val,
             _token:_token,
             id_user:id_user,
-            _method:_method,
-        }
+        };
+        console.log(data);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+            }
+        });
 
-        $('#update-item').one('click',function(event) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                method:'POST',
-                url:'{{ url("/dashboard/item/updateItem") }}/'+id,
-                data:data,
-                success: function(data){
-                    //window.location.reload(true);
-                    nama_item.html(nama_val)
-                    qty.html(qty_val)
-                    satuan.html(satuan_val)
-                    harga.html(harga_val)
-                    kategori.html(kategori_val)
-                    $('#item_' + id + ' .change-value').show()
-                    $('#item_' + id + ' .delete').show()
-                    $('#item_' + id + ' .edit').hide()
-                },
-                error: function(data){
-                    alert("error");
-                }
-            })
+        $.ajax({
+            method:'POST',
+            url:'{{ url("/dashboard/item/updateItem") }}/'+id,
+            data:data,
+            success: function(data){
+                nama_item.html(nama_val)
+                qty.html(qty_val)
+                satuan.html(satuan_val)
+                harga.html(harga_val)
+                kategori.html(kategori_val)
+                $('#item_' + id + ' .change-value').show()
+                $('#item_' + id + ' .delete').show()
+                $('#item_' + id + ' .edit').hide()
+                //window.location.reload(true);
+            },
+            error: function(data){
+                alert('error');
+            }
         })
     }
 
