@@ -31,7 +31,6 @@ class ItemController extends Controller
 
     public function updateItem(Request $request, $id)
     {
-        Item::where('id_item','=',$id)->update($request->all());
         //$item->nama_item=$request->nama_item;
         //$item->harga=$request->harga;
         //$item->qty=$request->qty;
