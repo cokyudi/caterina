@@ -23,6 +23,7 @@
             <div class="row wow">
                 <div class="col-md-8 wow fadeIn" data-wow-delay="0.2s">
                     <form class="" action="" method="post" style="display:inherit">
+                        <input type="hidden" id="in-userId" value="{{ $userId }}">
                         <input type="text" class="input-custom" name="" value="" style="width:400px" placeholder="Tambah menu makanan...">
                         <button type="button" class="btn btn-warning" style="margin-top:1px"><i class="icon ion-plus"></i></button>
                     </form>
@@ -31,6 +32,8 @@
                 <div class="col-md-4 text-right wow fadeIn" data-wow-delay="0.2s">
                     <a href="{{ URL::to('dashboard/item') }}" class="btn btn-theme">tambah item</a>
                 </div>
+                <?php $i=1; ?>
+                @foreach($menu as $a)
                 <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
                     <div class="card">
                         <div class="view overlay hm-white-slight">
@@ -39,7 +42,7 @@
                             </a>
                         </div>
                         <div class="card-block">
-                            <h4 class="card-title"><b>Nasi Goreng</b></h4>
+                            <h4 class="card-title"><b>{{ $a->nama_menu }}</b></h4>
                             <div class="read-more text-center" style="display:inherit;">
                                 <a href="#!" class="btn btn-theme"><i class="icon ion-edit"></i></a>
                                 <a href="#!" class="btn btn-danger"><i class="icon ion-android-delete"></i></a>
@@ -47,54 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
-                    <div class="card">
-                        <div class="view overlay hm-white-slight">
-                            <a href="#!">
-                                <div class="mask waves-effect waves-light"></div>
-                            </a>
-                        </div>
-                        <div class="card-block">
-                            <h4 class="card-title"><b>Nasi Goreng</b></h4>
-                            <div class="read-more text-center" style="display:inherit;">
-                                <a href="#!" class="btn btn-theme"><i class="icon ion-edit"></i></a>
-                                <a href="#!" class="btn btn-danger"><i class="icon ion-android-delete"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
-                    <div class="card">
-                        <div class="view overlay hm-white-slight">
-                            <a href="#!">
-                                <div class="mask waves-effect waves-light"></div>
-                            </a>
-                        </div>
-                        <div class="card-block">
-                            <h4 class="card-title"><b>Nasi Goreng</b></h4>
-                            <div class="read-more text-center" style="display:inherit;">
-                                <a href="#!" class="btn btn-theme"><i class="icon ion-edit"></i></a>
-                                <a href="#!" class="btn btn-danger"><i class="icon ion-android-delete"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
-                    <div class="card">
-                        <div class="view overlay hm-white-slight">
-                            <a href="#!">
-                                <div class="mask waves-effect waves-light"></div>
-                            </a>
-                        </div>
-                        <div class="card-block">
-                            <h4 class="card-title"><b>Nasi Goreng</b></h4>
-                            <div class="read-more text-center" style="display:inherit;">
-                                <a href="#!" class="btn btn-theme"><i class="icon ion-edit"></i></a>
-                                <a href="#!" class="btn btn-danger"><i class="icon ion-android-delete"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

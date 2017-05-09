@@ -144,7 +144,6 @@
     }
 
     function addItem() {
-        alert('tes')
         var nama_item = $('#add_item #in-nama').val()
         var qty = $('#add_item #in-qty').val()
         var satuan = $('#add_item #in-satuan').val()
@@ -171,6 +170,31 @@
         $.ajax({
             method:'POST',
             url:'{{ route("addItem") }}',
+            data:data,
+            success: function(data){
+                window.location.reload(true);
+            },
+            error: function(data){
+                alert("error");
+            }
+        })
+    }
+
+    function deleteItem(id){
+        var _token="{{ csrf_token() }}"
+        var data = {
+            _token:_token
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method:'POST',
+            url:'/dashboard/item/' + id + '/deleteItem',
             data:data,
             success: function(data){
                 window.location.reload(true);

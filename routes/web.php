@@ -31,8 +31,13 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/dashboard/pesanan/', 'Catering\PesananController@index');
 Route::get('/dashboard/menu/', 'Catering\MenuController@index');
 Route::get('/dashboard/menu/{id}', 'Catering\MenuController@detail');
+Route::post('/dashboard/menu/addMenu/', [
+    'as' => 'addMenu', 'uses' => 'Catering\MenuController@addMenu']);
+
+// Item
 Route::get('/dashboard/item/', 'Catering\ItemController@index');
 Route::post('/dashboard/item/addItem/', [
     'as' => 'addItem', 'uses' => 'Catering\ItemController@addItem']);
 Route::post('/dashboard/item/{id}/updateItem', 'Catering\ItemController@updateItem');
+Route::post('/dashboard/item/{id}/deleteItem', 'Catering\ItemController@deleteItem');
 //Route::patch('/dashboard/item/updateItem/{id}', 'Catering\ItemController@updateItem');

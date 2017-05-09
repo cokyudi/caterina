@@ -44,4 +44,9 @@ class ItemController extends Controller
         //Item::create($request->all());
     }
 
+    public function deleteItem($id)
+    {
+        Item::find($id)->delete();
+    }
+
 }
