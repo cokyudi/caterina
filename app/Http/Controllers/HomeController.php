@@ -26,12 +26,14 @@ class HomeController extends Controller
     {
         $data['card'] = Home::select('*')->where('status_catering','=',1)->get();
         $data['title'] = 'Caterina';
-        return view('home')->with($data);;
+        return view('home')->with($data);
     }
 
     public function cari()
     {
-        # code...
+        $data['card'] = Home::select('*')->where('status_catering','=',1)->get();
+        $data['title'] = 'Cari "nama catering"';
+        return view('cari', $data);
     }
 
 
