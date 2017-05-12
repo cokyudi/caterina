@@ -61,7 +61,7 @@
                     <p class="card-text-small">No Telp: {{ $a->no_telp_catering }}</p>
                     <p class="card-text">{{ $a->deskripsi }}</p>
                     <div class="read-more text-center">
-                        <a href="#!" class="btn btn-theme">Lihat catering</a>
+                        <a href="{{ URL::to('catering') }}" class="btn btn-theme">Lihat catering</a>
                     </div>
                 </div>
             </div>
