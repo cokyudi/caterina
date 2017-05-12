@@ -20,7 +20,7 @@
                 </div>
             </div>
 
-            <div id="myModal" class="modal">
+            <div id="myModal" class="modal mdl-gallery">
                 <span class="close cursor" onclick="closeModal()">&times;</span>
                 <div class="modal-content">
 
@@ -114,6 +114,25 @@
                         <button type="submit" form="form-pesan" class="btn btn-theme">Lihat catering</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="basicExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Nasi</h4>
+                <a class="btn btn-warning btn-sm" onclick="selectItem(31, 'Nasi Goreng', 5000, 300, 'gr', 1)">Nasi Goreng</a>
+                <a class="btn btn-warning btn-sm" onclick="selectItem(32, 'Nasi Putih', 3000, 300, 'gr', 1)">Nasi Putih</a>
             </div>
         </div>
     </div>
