@@ -8,11 +8,13 @@ class CateringController extends Controller
 {
     public function catering()
     {
-        # code...
+        $data['title'] = 'Nama Catering';
+        return view('catering', $data);
     }
 
     public function menu()
     {
-        # code...
+        $data['title'] = 'Nama Menu';
+        return view('menu', $data);
     }
 }
