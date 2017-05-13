@@ -34,6 +34,7 @@
                                 <th scope="row"></th>
                                 <td>
                                     <span class="nama"></span>
+                                    <input type="hidden" id="in-id-menu">
                                     <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#basicExample" onclick="item='add'">
                                         pilih item
                                     </button>
@@ -134,6 +135,11 @@
         $('#item_' + id + ' .jumlah_harga').html(Math.round(jumlah_harga))
     }
 
+    function addItem() {
+        var id_item = $('#item_add #in-id-menu').val()
+        var qty = $('#item_add #in-qty').val()
+    }
+
     function selectItem(id, nama, harga, qty, satuan, kategori) {
         $('#basicExample').modal('hide')
 
@@ -143,6 +149,7 @@
         $('#item_' + item + ' .satuan').html(satuan)
         $('#item_' + item + ' .jumlah_harga').html('')
         $('#item_' + item + ' #in-qty').val(0)
+        $('#item_' + item + ' #in-id-menu').val(id)
     }
 
     function changeValue(id) {
