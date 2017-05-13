@@ -35,16 +35,17 @@
                 <?php $i=1; ?>
                 @foreach($menu as $a)
                 <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
-                    <div class="card">
+                    <div class="card" id="item_{{ $a->id }}">
                         <div class="view overlay hm-white-slight">
                             <a href="{{ URL::to('dashboard/menu',$a->id) }}">
                                 <div class="mask waves-effect waves-light"></div>
                             </a>
                         </div>
                         <div class="card-block">
-                            <h4 class="card-title"><b>{{ $a->nama_menu }}</b></h4>
+                            <h4 class="card-title"><b><span class="nama_menu">{{ $a->nama_menu }}</span></b></h4>
                             <div class="read-more text-center" style="display:inherit;">
-                                <a href="#!" class="btn btn-theme" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
+                                <a href="#!" class="btn btn-theme change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
+                                <a href="#!" class="btn btn-theme edit" onclick="updateMenu({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
                                 <a href="#!" class="btn btn-danger" onclick="deleteMenu({{$a->id}})"><i class="icon ion-android-delete"></i></a>
                             </div>
                         </div>
@@ -85,6 +86,20 @@
                 alert("error");
             }
         })
+    }
+
+    function changeValue(id) {
+        var val = $('#item_' + id + ' .nama_menu').html()
+        $('#item_' + id + ' .nama_menu').html('<input type="text" class="in-nama-menu" value="' + val + '">')
+        $('#item_' + id + ' .change-value').hide()
+        $('#item_' + id + ' .edit').show()
+    }
+
+    function updateMenu(id) {
+        var val = $('#item_' + id + ' .in-nama-menu').val()
+        $('#item_' + id + ' .nama_menu').html(val)
+        $('#item_' + id + ' .change-value').show()
+        $('#item_' + id + ' .edit').hide()
     }
 
     function deleteMenu(id){
