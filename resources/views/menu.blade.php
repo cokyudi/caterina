@@ -56,33 +56,48 @@
                             <tr>
                                 <th width="50">#</th>
                                 <th>Nama Item</th>
-                                <th width="100">Qty</th>
+                                <th width="70">Qty</th>
+                                <th width="50">Sat</th>
                                 <th width="150">Harga</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="item">
                             <tr id="item_1">
                                 <th scope="row">1</th>
                                 <td class="nama">Nasi</td>
-                                <td class="qty">300 gr</td>
+                                <td class="qty">
+                                    <input type="text" value="300" id="in-qty" data-harga="5000" data-qty-satuan="300" onkeyup="calcPriceItem(1)">
+                                </td>
+                                <td class="sat">gr</td>
                                 <td>Rp. <span class="harga">5.000</span></td>
                             </tr>
-                            <tr>
-                                <td colspan="3" class="text-right"><b>Harga per pcs</b></td>
-                                <td><b>Rp. 5.000</b></td>
+                            <tr id="item_2">
+                                <th scope="row">1</th>
+                                <td class="nama">Nasi Kuning</td>
+                                <td class="qty">
+                                    <input type="text" value="300" id="in-qty" data-harga="7000" data-qty-satuan="300" onkeyup="calcPriceItem(2)">
+                                </td>
+                                <td class="sat">gr</td>
+                                <td>Rp. <span class="harga">5.000</span></td>
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" class="text-right"><b>Harga per pcs</b></td>
+                                <td><b>Rp. <span class="harga-menu">5.000</span></b></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
-                <button type="button" class="btn btn-theme" data-toggle="modal" data-target="#basicExample" onclick="item='add'">
-                    custom menu
+                <button type="button" class="btn btn-theme" data-toggle="modal" data-target="#customItem">
+                    pilih item
                 </button>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card">
                 <div class="stylish-color white-text" style="padding: 16px">
-                    <h4><b>Rp. <span id="harga">20000</span></b> <small>per pcs</small></h4>
+                    <h4><b>Rp. <span class="harga-menu">20000</span></b> <small>per pcs</small></h4>
                 </div>
                 <div class="card-block">
                     <form class="" action="index.html" method="post" id="form-pesan">
@@ -120,7 +135,7 @@
 </div>
 
 <!-- MODAL -->
-<div class="modal fade" id="basicExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="customItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -131,8 +146,26 @@
             </div>
             <div class="modal-body">
                 <h4>Nasi</h4>
-                <a class="btn btn-warning btn-sm" onclick="selectItem(31, 'Nasi Goreng', 5000, 300, 'gr', 1)">Nasi Goreng</a>
-                <a class="btn btn-warning btn-sm" onclick="selectItem(32, 'Nasi Putih', 3000, 300, 'gr', 1)">Nasi Putih</a>
+                <div class="row">
+                    <fieldset class="form-group col-md-4">
+                        <input type="checkbox" class="filled-in" id="checkbox1"
+                            value="Nasi" data-id="1" data-harga="5000" data-qty="300" data-satuan="gr" checked>
+                        <label for="checkbox1">Nasi</label>
+                    </fieldset>
+                    <fieldset class="form-group col-md-4">
+                        <input type="checkbox" class="filled-in" id="checkbox2"
+                            value="Nasi Kuning" data-id="2" data-harga="7000" data-qty="300" data-satuan="gr">
+                        <label for="checkbox2">Nasi Kuning</label>
+                    </fieldset>
+                    <fieldset class="form-group col-md-4">
+                        <input type="checkbox" class="filled-in" id="checkbox3"
+                            value="Nasi Uduk" data-id="3" data-harga="8000" data-qty="300" data-satuan="gr">
+                        <label for="checkbox3">nasi Uduk</label>
+                    </fieldset>
+                </div>
+                <div class="text-right">
+                    <a class="btn btn-theme" onclick="addItem()">pilih item</a>
+                </div>
             </div>
         </div>
     </div>
@@ -141,11 +174,70 @@
 
 @section('javascript')
 <script type="text/javascript">
+
+    function calcPriceItem(id) {
+        var qty = $('#item_' + id + ' #in-qty').val()
+        var qty_satuan = $('#item_' + id + ' input').data('qty-satuan')
+        var harga = $('#item_' + id + ' input').data('harga')
+        var jumlah_harga = harga*(qty/qty_satuan)
+
+        $('#item_' + id + ' .harga').html(Math.round(jumlah_harga))
+        calcPriceMenu()
+    }
+    function calcPriceMenu() {
+        var hargaMenu = 0
+        var tr = $('table > .item > tr')
+        tr.each(function (x) {
+            if(x!=undefined) {
+                hargaMenu += Math.round(tr.eq(x).find('.harga').html())
+            }
+        });
+        $('.harga-menu').html(hargaMenu)
+        calcTotalPrice()
+    }
     function calcTotalPrice() {
         var qty = $('#qty').val()
-        var harga = $('#harga').html()
+        var harga = $('.harga-menu').html()
         $('#total_harga').html(qty*harga)
     }
+
+    function customItem() {
+        var tr = $('table > .item > tr')
+        tr.each(function (x) {
+            if(x!=undefined) {
+                var qty = tr.eq(x).find('.qty')
+                var qty_val = qty.html()
+                qty.html('<input type="text" value="' + qty_val + '" id="in-qty">')
+            }
+        });
+    }
+
+    function addItem() {
+        $('#customItem').modal('hide')
+
+        $('.item').html('')
+        $('.filled-in:checkbox:checked').each(function () {
+            if (this.checked) {
+                var idItem = $(this).data('id')
+                var namaItem = $(this).val()
+                var qty = $(this).data('qty')
+                var harga = $(this).data('harga')
+                var satuan = $(this).data('satuan')
+
+                var dataItem = '<tr id="item_' + idItem + '">' +
+                            '<th scope="row">1</th>' +
+                            '<td class="nama">' + namaItem + '</td>' +
+                            '<td class="qty">' +
+                                '<input type="text" value="' + qty + '" id="in-qty" data-harga="' + harga + '" data-qty-satuan="' + qty + '" onkeyup="calcPriceItem(' + idItem + ')">' +
+                            '<td class="sat">gr</td>' +
+                            '<td>Rp. <span class="harga">' + harga + '</span></td>' +
+                        '</tr>'
+                $('.item').append(dataItem)
+            }
+        })
+
+    }
+
     function openModal() {
         document.getElementById('myModal').style.display = "block";
     }

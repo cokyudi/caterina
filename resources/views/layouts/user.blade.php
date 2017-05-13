@@ -14,6 +14,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/mdb.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/compiled.min.css') }}" rel="stylesheet">
 
     <script>
         window.Laravel = {!! json_encode([
