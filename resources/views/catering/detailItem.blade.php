@@ -34,7 +34,8 @@
                                 <th scope="row"></th>
                                 <td>
                                     <span class="nama"></span>
-                                    <input type="hidden" id="in-id-menu">
+                                    <input type="hidden" id="in-id-item">
+                                    <input type="hidden" id="in-id-menu" value="{{ $MenuTitle->id }}">
                                     <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#basicExample" onclick="item='add'">
                                         pilih item
                                     </button>
@@ -136,7 +137,8 @@
     }
 
     function addItem() {
-        var id_item = $('#item_add #in-id-menu').val()
+        var id_item = $('#item_add #in-id-item').val()
+        var id_menu = $('#item_add #in-id-menu').val()
         var qty = $('#item_add #in-qty').val()
     }
 
@@ -149,7 +151,7 @@
         $('#item_' + item + ' .satuan').html(satuan)
         $('#item_' + item + ' .jumlah_harga').html('')
         $('#item_' + item + ' #in-qty').val(0)
-        $('#item_' + item + ' #in-id-menu').val(id)
+        $('#item_' + item + ' #in-id-item').val(id)
     }
 
     function changeValue(id) {
