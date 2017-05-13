@@ -37,15 +37,15 @@
                 <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
                     <div class="card">
                         <div class="view overlay hm-white-slight">
-                            <a href="{{ URL::to('dashboard/menu',1) }}">
+                            <a href="{{ URL::to('dashboard/menu',$a->id) }}">
                                 <div class="mask waves-effect waves-light"></div>
                             </a>
                         </div>
                         <div class="card-block">
                             <h4 class="card-title"><b>{{ $a->nama_menu }}</b></h4>
                             <div class="read-more text-center" style="display:inherit;">
-                                <a href="#!" class="btn btn-theme"><i class="icon ion-edit"></i></a>
-                                <a href="#!" class="btn btn-danger"><i class="icon ion-android-delete"></i></a>
+                                <a href="#!" class="btn btn-theme" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
+                                <a href="#!" class="btn btn-danger" onclick="deleteMenu({{$a->id}})"><i class="icon ion-android-delete"></i></a>
                             </div>
                         </div>
                     </div>
@@ -77,6 +77,31 @@
         $.ajax({
             method:'POST',
             url:'{{ route("addMenu") }}',
+            data:data,
+            success: function(data){
+                window.location.reload(true);
+            },
+            error: function(data){
+                alert("error");
+            }
+        })
+    }
+
+    function deleteMenu(id){
+        var _token="{{ csrf_token() }}"
+        var data = {
+            _token:_token
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method:'POST',
+            url:'/dashboard/menu/' + id + '/deleteMenu',
             data:data,
             success: function(data){
                 window.location.reload(true);
