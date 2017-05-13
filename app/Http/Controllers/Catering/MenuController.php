@@ -28,7 +28,7 @@ class MenuController extends Controller
     public function detail($id)
     {
         $userId = Auth::user()->id;
-        $data['detailItem'] = MenuItem::select('*')
+        $data['detailItem'] = MenuItem::select('menu_item.*','item.nama_item', 'item.harga', 'item.qty', 'item.satuan', 'item.kategori')
                                         ->join('item', 'menu_item.id_item', '=', 'item.id')
                                         ->where('id_menu',$id)->get();
         $data['MenuTitle'] = MenuItem::select('*')
@@ -46,8 +46,33 @@ class MenuController extends Controller
         Menu::create($request->all());
     }
 
+    public function updateMenu(Request $request, $id)
+    {
+        $menu = Menu::find($id);
+        $menu->nama_menu=$request->nama_menu;
+        $menu->save();
+    }
+
     public function deleteMenu($id)
     {
         Menu::find($id)->delete();
+    }
+
+    public function addMenuItem(Request $request)
+    {
+        MenuItem::create($request->all());
+    }
+
+    public function updateMenuItem(Request $request, $id)
+    {
+        $menuItem = MenuItem::find($id);
+        $menuItem->qty_default=$request->qty_default;
+        $menuItem->id_item=$request->id_item;
+        $menuItem->save();
+    }
+
+    public function deleteMenuItem($id)
+    {
+        MenuItem::find($id)->delete();
     }
 }

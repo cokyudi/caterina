@@ -49,7 +49,7 @@
                                 <td>Rp. <span class="harga"></span>/<span class="qty_satuan"></span><span class="satuan"></span></td>
                                 <td>Rp. <span class="jumlah_harga"></span></td>
                                 <td>
-                                    <a class="btn btn-theme" onclick="addItem()"><i class="icon ion-plus"></i></a>
+                                    <a class="btn btn-theme" onclick="addMenuItem()"><i class="icon ion-plus"></i></a>
                                 </td>
                             </tr>
                             <!-- END ADD NEW ITEM -->
@@ -57,11 +57,12 @@
                         <?php $i=1; ?>
                         <?php $j=1; ?>
                         @foreach($detailItem as $a)
-                            <tr id="item_{{$a->id_item}}">
+                            <tr id="item_{{$a->id}}">
                                 <th scope="row">{{ $i, $i++ }}</th>
                                 <td>
                                     <span class="nama">{{$a->nama_item}}</span>
-                                    <a class="select-item" data-toggle="modal" data-target="#basicExample" style="display:none" onclick="item={{$a->id_item}}"><i class="icon ion-edit"></i></a>
+                                    <input type="hidden" id="in-id-item" value="{{$a->id_item}}">
+                                    <a class="select-item" data-toggle="modal" data-target="#basicExample" style="display:none" onclick="item={{$a->id}}"><i class="icon ion-edit"></i></a>
                                 </td>
                                 <td class="wajib">
                                     <fieldset class="form-group">
@@ -72,9 +73,9 @@
                                 <td>Rp. <span class="harga">{{$a->harga}}</span>/<span class="qty_satuan">{{$a->qty}}</span><span class="satuan">gr</span></td>
                                 <td>Rp. <span class="jumlah_harga">{{$a->harga*$a->qty_default}}</span></td>
                                 <td>
-                                    <a class="blue-text change-value" onclick="changeValue({{$a->id_item}})"><i class="icon ion-edit"></i></a>
-                                    <a class="red-text delete" onclick="deleteItem({{$a->id_item}})"><i class="icon ion-close"></i></a>
-                                    <a class="blue-text edit" onclick="editItem({{$a->id_item}})" style="display:none"><i class="icon ion-android-send"></i></a>
+                                    <a class="blue-text change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
+                                    <a class="red-text delete" onclick="deleteMenuItem({{$a->id}})"><i class="icon ion-close"></i></a>
+                                    <a class="blue-text edit" onclick="editMenuItem({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
                                 </td>
                             </tr>
                         <?php
@@ -136,10 +137,35 @@
         $('#item_' + id + ' .jumlah_harga').html(Math.round(jumlah_harga))
     }
 
-    function addItem() {
+    function addMenuItem() {
         var id_item = $('#item_add #in-id-item').val()
         var id_menu = $('#item_add #in-id-menu').val()
         var qty = $('#item_add #in-qty').val()
+        var _token= "{{ csrf_token() }}"
+        var data = {
+            id_menu:id_menu,
+            id_item:id_item,
+            qty_default:qty,
+            _token:_token
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method:'POST',
+            url:'{{ route("addMenuItem") }}',
+            data:data,
+            success: function(data){
+                window.location.reload(true);
+            },
+            error: function(data){
+                alert("error");
+            }
+        })
     }
 
     function selectItem(id, nama, harga, qty, satuan, kategori) {
@@ -167,29 +193,80 @@
         $('#item_' + id + ' .edit').show()
     }
 
-    function editItem(id) {
+    function editMenuItem(id) {
         $('#item_' + id + ' .select-item').hide()
         $('#item_' + id + ' #in-require').attr("disabled", true)
 
         var qty = $('#item_' + id + ' .qty')
         var qty_val = $('#item_' + id + ' #in-qty').val()
-        qty.html(qty_val)
+        var id_item_val = $('#item_' + id + ' #in-id-item').val()
+        var _token="{{ csrf_token() }}"
+        var data = {
+            qty_default:qty_val,
+            id_item:id_item_val,
+            _token:_token
+        }
 
-        $('#item_' + id + ' .change-value').show()
-        $('#item_' + id + ' .delete').show()
-        $('#item_' + id + ' .edit').hide()
-
-        var harga_menu = 0
-        var tr = $('#tb-item').find('tr')
-        tr.each(function () {
-            if(tr.next()[0]!=undefined) {
-                tr=tr.next();
-                if (tr.find('.jumlah_harga').html()!=undefined) {
-                    harga_menu += Number(tr.find('.jumlah_harga').html())
-                }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
             }
         });
-        $('.harga_menu').html(harga_menu)
+
+        $.ajax({
+            method:'POST',
+            url:'/dashboard/menu/' + id + '/updateMenuItem',
+            data:data,
+            success: function(result){
+
+                qty.html(qty_val)
+
+                $('#item_' + id + ' .change-value').show()
+                $('#item_' + id + ' .delete').show()
+                $('#item_' + id + ' .edit').hide()
+
+                var harga_menu = 0
+                var tr = $('#tb-item').find('tr')
+                tr.each(function () {
+                    if(tr.next()[0]!=undefined) {
+                        tr=tr.next();
+                        if (tr.find('.jumlah_harga').html()!=undefined) {
+                            harga_menu += Number(tr.find('.jumlah_harga').html())
+                        }
+                    }
+                });
+                $('.harga_menu').html('Rp. '+ harga_menu)
+                //window.location.reload(true);
+            },
+            error: function(result){
+                console.log(result);
+            }
+        })
+    }
+
+    function deleteMenuItem(id){
+        var _token="{{ csrf_token() }}"
+        var data = {
+            _token:_token
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method:'POST',
+            url:'/dashboard/menu/' + id + '/deleteMenuItem',
+            data:data,
+            success: function(data){
+                window.location.reload(true);
+            },
+            error: function(data){
+                alert("error");
+            }
+        })
     }
 </script>
 @endsection

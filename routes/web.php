@@ -33,7 +33,12 @@ Route::get('/dashboard/menu/', 'Catering\MenuController@index');
 Route::get('/dashboard/menu/{id}', 'Catering\MenuController@detail');
 Route::post('/dashboard/menu/addMenu/', [
     'as' => 'addMenu', 'uses' => 'Catering\MenuController@addMenu']);
+Route::post('/dashboard/menu/{id}/updateMenu', 'Catering\MenuController@updateMenu');
 Route::post('/dashboard/menu/{id}/deleteMenu', 'Catering\MenuController@deleteMenu');
+Route::post('/dashboard/menu/addMenuItem/', [
+    'as' => 'addMenuItem', 'uses' => 'Catering\MenuController@addMenuItem']);
+Route::post('/dashboard/menu/{id}/deleteMenuItem', 'Catering\MenuController@deleteMenuItem');
+Route::post('/dashboard/menu/{id}/updateMenuItem', 'Catering\MenuController@updateMenuItem');
 
 // Item
 Route::get('/dashboard/item/', 'Catering\ItemController@index');

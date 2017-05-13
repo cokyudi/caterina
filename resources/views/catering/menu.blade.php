@@ -46,7 +46,7 @@
                             <div class="read-more text-center" style="display:inherit;">
                                 <a href="#!" class="btn btn-theme change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
                                 <a href="#!" class="btn btn-theme edit" onclick="updateMenu({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
-                                <a href="#!" class="btn btn-danger" onclick="deleteMenu({{$a->id}})"><i class="icon ion-android-delete"></i></a>
+                                <a href="#!" class="btn btn-danger delete" onclick="deleteMenu({{$a->id}})"><i class="icon ion-android-delete"></i></a>
                             </div>
                         </div>
                     </div>
@@ -92,14 +92,41 @@
         var val = $('#item_' + id + ' .nama_menu').html()
         $('#item_' + id + ' .nama_menu').html('<input type="text" class="in-nama-menu" value="' + val + '">')
         $('#item_' + id + ' .change-value').hide()
+        $('#item_' + id + ' .delete').hide()
         $('#item_' + id + ' .edit').show()
     }
 
     function updateMenu(id) {
         var val = $('#item_' + id + ' .in-nama-menu').val()
-        $('#item_' + id + ' .nama_menu').html(val)
-        $('#item_' + id + ' .change-value').show()
-        $('#item_' + id + ' .edit').hide()
+        var _token="{{ csrf_token() }}"
+        var data={
+            nama_menu:val,
+            _token:_token
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method:'POST',
+            url:'/dashboard/menu/' + id + '/updateMenu',
+            data:data,
+            success: function(result){
+
+                $('#item_' + id + ' .nama_menu').html(val)
+                $('#item_' + id + ' .change-value').show()
+                $('#item_' + id + ' .delete').show()
+                $('#item_' + id + ' .edit').hide()
+                //window.location.reload(true);
+            },
+            error: function(result){
+                console.log(result);
+            }
+        })
+
     }
 
     function deleteMenu(id){
