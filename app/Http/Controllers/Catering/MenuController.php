@@ -37,6 +37,7 @@ class MenuController extends Controller
         $data['item'] = Item::select('*')->where('id_user','=',$userId)->where('status_item','=',1)->get();
         $data['title'] = 'Detail Item';
         $data['userId'] = $userId;
+
         return view('catering.detailItem', $data);
     }
 
@@ -61,18 +62,41 @@ class MenuController extends Controller
     public function addMenuItem(Request $request)
     {
         MenuItem::create($request->all());
+
+        $item = Item::find($request->id_item);
+
+        $menu = Menu::find($request->id_menu);
+        $menu->harga += ($item->harga/$item->qty)*$request->qty_default;
+        $menu->save();
     }
 
     public function updateMenuItem(Request $request, $id)
     {
         $menuItem = MenuItem::find($id);
-        $menuItem->qty_default=$request->qty_default;
-        $menuItem->id_item=$request->id_item;
+        $item = Item::find($menuItem->id_item);
+        $menu = Menu::find($menuItem->id_menu);
+
+        $menu->harga -= ($item->harga/$item->qty)*$menuItem->qty_default;
+
+        $menuItem->qty_default = $request->qty_default;
+        $menuItem->id_item = $request->id_item;
         $menuItem->save();
+
+        $item = Item::find($request->id_item);
+        $menu->harga += ($item->harga/$item->qty)*$request->qty_default;
+        $menu->save();
     }
 
     public function deleteMenuItem($id)
     {
-        MenuItem::find($id)->delete();
+        $menuItem = MenuItem::find($id);
+        $item = Item::find($menuItem->id_item);
+        $menu = Menu::find($menuItem->id_menu);
+
+        $menu->harga -= ($item->harga/$item->qty)*$menuItem->qty_default;
+        $menu->save();
+
+        $menuItem->delete();
+        echo $menu->harga;
     }
 }

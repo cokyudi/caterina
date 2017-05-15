@@ -39,7 +39,7 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarNav1">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ URL::to('/') }}">Home</a>
                     </li>
                     @if (Auth::guest())
@@ -50,24 +50,26 @@
                             <a class="nav-link" href="{{ route('register') }}">Register</a>
                         </li>
                     @else
-                        <li class="dropdown nav-item active">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->nama_user }} <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
+                        <li class="nav-item btn-group">
+                            <a class="nav-link dropdown-toggle" id="dropdownUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->nama_user }}</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownUser">
+                                <a class="dropdown-item" href="{{ URL::to('profile') }}">Profil</a>
+                                <a class="dropdown-item" href="{{ URL::to('pesanan') }}">Pesanan</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </div>
+                        </li>
+                    @endif
+                    @if (Auth::user()->status_catering)
+                        <li class="nav-item btn-group">
+                            <a class="nav-link dropdown-toggle" id="dropdownCatering" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->nama_catering }}</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownCatering">
+                                <a class="dropdown-item" href="{{ URL::to('dashboard/profile') }}">Profil</a>
+                                <a class="dropdown-item" href="{{ URL::to('dashboard/pesanan') }}">Pesanan</a>
+                                <a class="dropdown-item" href="{{ URL::to('dashboard/menu') }}">Menu</a>
+                            </div>
                         </li>
                     @endif
                 </ul>

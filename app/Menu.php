@@ -11,6 +11,7 @@ class Menu extends Model
         'id',
         'nama_menu',
         'id_user',
+        'harga',
         'status_menu'
     ];
     public $timestamps=false;

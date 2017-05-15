@@ -17,7 +17,7 @@ class ItemController extends Controller
     public function index()
     {
         $userId = Auth::user()->id;
-        $data['item'] = Item::select('*')->where('id_user','=',$userId)->where('status_item','=',1)->get();
+        $data['item'] = Item::select('*')->where('id_user','=',$userId)->where('status_item','=',1)->orderBy('kategori', 'ASC')->get();
         $data['userId'] = $userId;
         $data['title'] = 'Item Catering';
         return view('catering.item', $data);

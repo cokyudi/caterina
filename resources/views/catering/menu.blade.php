@@ -32,25 +32,25 @@
                 <div class="col-md-4 text-right wow fadeIn" data-wow-delay="0.2s">
                     <a href="{{ URL::to('dashboard/item') }}" class="btn btn-theme">tambah item</a>
                 </div>
-                <?php $i=1; ?>
                 @foreach($menu as $a)
-                <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
-                    <div class="card" id="item_{{ $a->id }}">
-                        <div class="view overlay hm-white-slight">
-                            <a href="{{ URL::to('dashboard/menu',$a->id) }}">
-                                <div class="mask waves-effect waves-light"></div>
-                            </a>
-                        </div>
-                        <div class="card-block">
-                            <h4 class="card-title"><b><span class="nama_menu">{{ $a->nama_menu }}</span></b></h4>
-                            <div class="read-more text-center" style="display:inherit;">
-                                <a href="#!" class="btn btn-theme change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
-                                <a href="#!" class="btn btn-theme edit" onclick="updateMenu({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
-                                <a href="#!" class="btn btn-danger delete" onclick="deleteMenu({{$a->id}})"><i class="icon ion-android-delete"></i></a>
+                    <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
+                        <div class="card" id="item_{{ $a->id }}">
+                            <div class="view overlay hm-white-slight">
+                                <a href="{{ URL::to('dashboard/menu',$a->id) }}">
+                                    <div class="mask waves-effect waves-light"></div>
+                                </a>
+                            </div>
+                            <div class="card-block">
+                                <h4 class="card-title"><b><span class="nama_menu">{{ $a->nama_menu }}</span></b></h4>
+                                <h4 class="card-text"><b>Rp. {{ $a->harga }}</b></h4>
+                                <div class="read-more text-center" style="display:inherit;">
+                                    <a href="#!" class="btn btn-theme change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
+                                    <a href="#!" class="btn btn-theme edit" onclick="updateMenu({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
+                                    <a href="#!" class="btn btn-danger delete" onclick="deleteMenu({{$a->id}})"><i class="icon ion-android-delete"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
             </div>
         </div>
@@ -70,9 +70,7 @@
         }
 
         $.ajaxSetup({
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
-            }
+            headers: {'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')}
         });
 
         $.ajax({
@@ -146,7 +144,7 @@
             url:'/dashboard/menu/' + id + '/deleteMenu',
             data:data,
             success: function(data){
-                window.location.reload(true);
+                $('#item_'+id).remove()
             },
             error: function(data){
                 alert("error");

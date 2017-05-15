@@ -13,6 +13,8 @@
 <div class="container" style="margin-top:96px">
     <div class="row">
         <div class="col-md-12">
+            <a href="{{ URL::to('dashboard/menu') }}" class="btn btn-orange btn-sm"><i class="icon ion-android-arrow-back"></i> Kembali ke daftar menu</a>
+            <h3>DAFTAR ITEM CATERING</h3>
             <div class="card">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
@@ -197,7 +199,7 @@
             url:'/dashboard/item/' + id + '/deleteItem',
             data:data,
             success: function(data){
-                window.location.reload(true);
+                $('#item_'+id).remove()
             },
             error: function(data){
                 alert("error");

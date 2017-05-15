@@ -11,6 +11,7 @@
 
 @section('content')
 <div class="container" style="margin-top:96px">
+    <a href="{{ URL::to('dashboard/menu') }}" class="btn btn-orange btn-sm"><i class="icon ion-android-arrow-back"></i> Kembali ke daftar menu</a>
     <h2 class="h2-responsive wow fadeIn">{{ $MenuTitle->nama_menu }}</h2><br>
     <div class="row">
         <div class="col-md-12">
@@ -54,11 +55,10 @@
                             </tr>
                             <!-- END ADD NEW ITEM -->
                             <!-- ALL ITEM -->
-                        <?php $i=1; ?>
-                        <?php $j=1; ?>
-                        @foreach($detailItem as $a)
+                        <?php $total_harga = 0; ?>
+                        @foreach($detailItem as $key =>$a)
                             <tr id="item_{{$a->id}}">
-                                <th scope="row">{{ $i, $i++ }}</th>
+                                <th scope="row">{{ $key+1 }}</th>
                                 <td>
                                     <span class="nama">{{$a->nama_item}}</span>
                                     <input type="hidden" id="in-id-item" value="{{$a->id_item}}">
@@ -69,30 +69,21 @@
                                         <input type="checkbox" id="in-require" disabled checked>
                                     </fieldset>
                                 </td>
-                                <td><span class="qty">{{$a->qty_default}}</span> gr</td>
-                                <td>Rp. <span class="harga">{{$a->harga}}</span>/<span class="qty_satuan">{{$a->qty}}</span><span class="satuan">gr</span></td>
-                                <td>Rp. <span class="jumlah_harga">{{$a->harga*$a->qty_default}}</span></td>
+                                <td><span class="qty">{{$a->qty_default}}</span> {{$a->satuan}}</td>
+                                <td>Rp. <span class="harga">{{$a->harga}}</span>/<span class="qty_satuan">{{$a->qty}}</span><span class="satuan">{{$a->satuan}}</span></td>
+                                <td>Rp. <span class="jumlah_harga">{{$harga = ($a->harga/$a->qty)*$a->qty_default}}</span></td>
                                 <td>
                                     <a class="blue-text change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
                                     <a class="red-text delete" onclick="deleteMenuItem({{$a->id}})"><i class="icon ion-close"></i></a>
                                     <a class="blue-text edit" onclick="editMenuItem({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
                                 </td>
                             </tr>
-                        <?php
-                            $hitung[$j] = $a->harga*$a->qty_default;
-                            $j++;
-                        ?>
+                            <?php $total_harga += $harga; ?>
                         @endforeach
                             <!-- END ALL ITEM -->
-                        <?php
-                            $total = 0;
-                            for ($n=1; $n < $j ; $n++) {
-                                $total = $total+$hitung[$n];
-                            }
-                         ?>
                             <tr>
                                 <td colspan="5">Harga Menu</td>
-                                <td><span class="harga_menu">Rp. {{$total}} </span></td>
+                                <td>Rp. <span class="harga_menu"> {{$total_harga}} </span></td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -163,6 +154,7 @@
                 window.location.reload(true);
             },
             error: function(data){
+                alert(data)
                 alert("error");
             }
         })
@@ -218,7 +210,6 @@
             url:'/dashboard/menu/' + id + '/updateMenuItem',
             data:data,
             success: function(result){
-
                 qty.html(qty_val)
 
                 $('#item_' + id + ' .change-value').show()
@@ -235,8 +226,7 @@
                         }
                     }
                 });
-                $('.harga_menu').html('Rp. '+ harga_menu)
-                //window.location.reload(true);
+                $('.harga_menu').html(harga_menu)
             },
             error: function(result){
                 console.log(result);
@@ -261,7 +251,8 @@
             url:'/dashboard/menu/' + id + '/deleteMenuItem',
             data:data,
             success: function(data){
-                window.location.reload(true);
+                $('.harga_menu').html(data)
+                $('#item_'+id).remove()
             },
             error: function(data){
                 alert("error");
