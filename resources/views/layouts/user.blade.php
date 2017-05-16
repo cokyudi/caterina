@@ -61,16 +61,16 @@
                                 </form>
                             </div>
                         </li>
-                    @endif
-                    @if (Auth::user()->status_catering)
-                        <li class="nav-item btn-group">
-                            <a class="nav-link dropdown-toggle" id="dropdownCatering" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->nama_catering }}</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownCatering">
-                                <a class="dropdown-item" href="{{ URL::to('dashboard/profile') }}">Profil</a>
-                                <a class="dropdown-item" href="{{ URL::to('dashboard/pesanan') }}">Pesanan</a>
-                                <a class="dropdown-item" href="{{ URL::to('dashboard/menu') }}">Menu</a>
-                            </div>
-                        </li>
+                        @if (Auth::user()->status_catering)
+                            <li class="nav-item btn-group">
+                                <a class="nav-link dropdown-toggle" id="dropdownCatering" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->nama_catering }}</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownCatering">
+                                    <a class="dropdown-item" href="{{ URL::to('dashboard/profile') }}">Profil</a>
+                                    <a class="dropdown-item" href="{{ URL::to('dashboard/pesanan') }}">Pesanan</a>
+                                    <a class="dropdown-item" href="{{ URL::to('dashboard/menu') }}">Menu</a>
+                                </div>
+                            </li>
+                        @endif
                     @endif
                 </ul>
             </div>
