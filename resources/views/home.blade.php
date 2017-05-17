@@ -51,7 +51,7 @@
         <div class="col-lg-4 col-md-6 wow fadeIn" data-wow-delay="0.2s">
             <div class="card">
                 <div class="view overlay hm-white-slight">
-                    <a href="#!">
+                    <a href="{{ URL::to('catering/'.$a->id) }}">
                         <div class="mask waves-effect waves-light"></div>
                     </a>
                 </div>
@@ -61,7 +61,7 @@
                     <p class="card-text-small">No Telp: {{ $a->no_telp_catering }}</p>
                     <p class="card-text">{{ $a->deskripsi }}</p>
                     <div class="read-more text-center">
-                        <a href="{{ URL::to('catering') }}" class="btn btn-theme">Lihat catering</a>
+                        <a href="{{ URL::to('catering/'.$a->id) }}" class="btn btn-theme">Lihat catering</a>
                     </div>
                 </div>
             </div>

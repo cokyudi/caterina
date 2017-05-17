@@ -33,32 +33,34 @@
             <div class="display-picture" style="background-image: url('{{ asset('img/big_picture.jpg') }}')"></div>
         </div>
         <div class="col-sm-9" style="padding-top:24px">
-            <h4><b>Nama Catering</b></h4>
-            <p>nasi campur isi telor dadar</p>
-            <p><b>Alamat:</b> Jalan Blambangan Gg 1</p>
-            <p><b>No telp:</b> 081332211</p>
+            <h4><b>{{ $catering->nama_catering }}</b></h4>
+            <p>{{ $catering->deskripsi }}</p>
+            <p><b>Alamat:</b> {{ $catering->alamat_catering }}</p>
+            <p><b>No telp:</b> {{ $catering->no_telp_catering }}</p>
         </div>
     </div>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-3 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
-            <div class="card">
-                <div class="view overlay hm-white-slight">
-                    <a href="{{ URL::to('menu') }}">
-                        <div class="mask waves-effect waves-light"></div>
-                    </a>
-                </div>
-                <div class="card-block">
-                    <h4 class="card-title"><b>Nasi Goreng</b></h4>
-                    <p class="card-text green-text text-right"><b>Rp. 10.000</b></p>
-                    <div class="read-more text-center" style="display:inherit;">
-                        <a href="{{ URL::to('menu') }}" class="btn btn-theme">lihat menu</a>
+        @foreach($menu as $a)
+            <div class="col-lg-3 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
+                <div class="card">
+                    <div class="view overlay hm-white-slight">
+                        <a href="{{ URL::to('menu/'.$a->id) }}">
+                            <div class="mask waves-effect waves-light"></div>
+                        </a>
+                    </div>
+                    <div class="card-block">
+                        <h4 class="card-title"><b>{{ $a->nama_menu }}</b></h4>
+                        <p class="card-text green-text text-right"><b>Rp. {{ $a->harga }}</b></p>
+                        <div class="read-more text-center" style="display:inherit;">
+                            <a href="{{ URL::to('menu/'.$a->id) }}" class="btn btn-theme">lihat menu</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
 </div>
 @endsection

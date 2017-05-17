@@ -62,29 +62,26 @@
                             </tr>
                         </thead>
                         <tbody class="item">
-                            <tr id="item_1">
-                                <th scope="row">1</th>
-                                <td class="nama">Nasi</td>
-                                <td class="qty">
-                                    <input type="text" value="300" id="in-qty" data-harga="5000" data-qty-satuan="300" onkeyup="calcPriceItem(1)">
-                                </td>
-                                <td class="sat">gr</td>
-                                <td>Rp. <span class="harga">5.000</span></td>
-                            </tr>
-                            <tr id="item_2">
-                                <th scope="row">1</th>
-                                <td class="nama">Nasi Kuning</td>
-                                <td class="qty">
-                                    <input type="text" value="300" id="in-qty" data-harga="7000" data-qty-satuan="300" onkeyup="calcPriceItem(2)">
-                                </td>
-                                <td class="sat">gr</td>
-                                <td>Rp. <span class="harga">5.000</span></td>
-                            </tr>
+                            @foreach($menu_item as $key => $a)
+                                <tr id="item_{{ $a->id_item }}">
+                                    <input type="hidden" name="id_item[{{ $key }}]" value="{{ $a->id_item }}" form="form-pesan">
+                                    <th scope="row">{{ $key+1 }}</th>
+                                    <td class="nama">{{ $a->nama_item }}</td>
+                                    <td class="qty">
+                                        <input type="text" value="{{ $a->qty_default }}" id="in-qty" name="qty_item[{{$key}}]" form="form-pesan"
+                                            data-harga="{{ $a->harga }}"
+                                            data-qty-satuan="{{ $a->qty }}"
+                                            onkeyup="calcPriceItem({{ $a->id_item }})">
+                                    </td>
+                                    <td class="sat">{{ $a->satuan }}</td>
+                                    <td>Rp. <span class="harga">{{ $a->harga/$a->qty*$a->qty_default }}</span></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td colspan="4" class="text-right"><b>Harga per pcs</b></td>
-                                <td><b>Rp. <span class="harga-menu">5.000</span></b></td>
+                                <td><b>Rp. <span class="harga-menu">{{ $a->harga_menu }}</span></b></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -97,10 +94,10 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="stylish-color white-text" style="padding: 16px">
-                    <h4><b>Rp. <span class="harga-menu">20000</span></b> <small>per pcs</small></h4>
+                    <h4><b>Rp. <span class="harga-menu">{{ $a->harga_menu }}</span></b> <small>per pcs</small></h4>
                 </div>
                 <div class="card-block">
-                    <form class="" action="index.html" method="post" id="form-pesan">
+                    <form action="{{ URL::to('checkout') }}" method="post" id="form-pesan">
                         <div class="md-form">
                             <input type="number" id="qty" name="qty" class="form-control" value="5" onchange="calcTotalPrice()">
                             <label for="qty" class="">Jumlah</label>
@@ -114,11 +111,9 @@
                             <label for="alamat" class="">Alamat</label>
                         </div>
                         <div class="md-form">
-                            <input type="text" id="lokasi" name="lokasi" class="form-control">
-                            <label for="lokasi" class="">Lokasi</label>
-                        </div>
-                        <div class="md-form">
                             <textarea type="text" id="pesan" name="pesan" class="md-textarea"></textarea>
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="id_menu" value="{{ $menu->id }}">
                             <label for="pesan">Pesan tambahan untuk catering</label>
                         </div>
                     </form>
@@ -126,7 +121,7 @@
                         <h4>Total: <b>Rp <span id="total_harga">20000</span></b></h4>
                     </div><br>
                     <div class="read-more text-center">
-                        <button type="submit" form="form-pesan" class="btn btn-theme">Lihat catering</button>
+                        <button type="submit" form="form-pesan" class="btn btn-theme">Pesan Sekarang</button>
                     </div>
                 </div>
             </div>
@@ -145,24 +140,33 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h4>Nasi</h4>
-                <div class="row">
-                    <fieldset class="form-group col-md-4">
-                        <input type="checkbox" class="filled-in" id="checkbox1"
-                            value="Nasi" data-id="1" data-harga="5000" data-qty="300" data-satuan="gr" checked>
-                        <label for="checkbox1">Nasi</label>
-                    </fieldset>
-                    <fieldset class="form-group col-md-4">
-                        <input type="checkbox" class="filled-in" id="checkbox2"
-                            value="Nasi Kuning" data-id="2" data-harga="7000" data-qty="300" data-satuan="gr">
-                        <label for="checkbox2">Nasi Kuning</label>
-                    </fieldset>
-                    <fieldset class="form-group col-md-4">
-                        <input type="checkbox" class="filled-in" id="checkbox3"
-                            value="Nasi Uduk" data-id="3" data-harga="8000" data-qty="300" data-satuan="gr">
-                        <label for="checkbox3">nasi Uduk</label>
-                    </fieldset>
-                </div>
+                @foreach($kategori as $kat)
+                    <h4>{{ $kat->nama_kategori }}</h4>
+                    <div class="row">
+                        @foreach($item as $a)
+                            @if($kat->id == $a->kategori)
+                                <?php
+                                    $checked = '';
+                                    foreach ($menu_item as $key => $mi) {
+                                        if ($mi->id_item == $a->id) {
+                                            $checked = 'checked';
+                                            break;
+                                        }
+                                    }
+                                ?>
+                                <fieldset class="form-group col-md-4">
+                                    <input type="checkbox" class="filled-in" id="checkbox{{ $a->id }}" {{ $checked }}
+                                        value="{{ $a->nama_item }}"
+                                        data-id="{{ $a->id }}"
+                                        data-harga="{{ $a->harga }}"
+                                        data-qty="{{ $a->qty }}"
+                                        data-satuan="{{ $a->satuan }}">
+                                    <label for="checkbox{{ $a->id }}">{{ $a->nama_item }}</label>
+                                </fieldset>
+                            @endif
+                        @endforeach
+                    </div>
+                @endforeach
                 <div class="text-right">
                     <a class="btn btn-theme" onclick="addItem()">pilih item</a>
                 </div>
@@ -174,6 +178,8 @@
 
 @section('javascript')
 <script type="text/javascript">
+
+    calcPriceMenu()
 
     function calcPriceItem(id) {
         var qty = $('#item_' + id + ' #in-qty').val()
@@ -215,6 +221,7 @@
     function addItem() {
         $('#customItem').modal('hide')
 
+        var nomor = 1
         $('.item').html('')
         $('.filled-in:checkbox:checked').each(function () {
             if (this.checked) {
@@ -225,16 +232,18 @@
                 var satuan = $(this).data('satuan')
 
                 var dataItem = '<tr id="item_' + idItem + '">' +
-                            '<th scope="row">1</th>' +
+                            '<th scope="row">' + nomor + '</th>' +
                             '<td class="nama">' + namaItem + '</td>' +
                             '<td class="qty">' +
                                 '<input type="text" value="' + qty + '" id="in-qty" data-harga="' + harga + '" data-qty-satuan="' + qty + '" onkeyup="calcPriceItem(' + idItem + ')">' +
-                            '<td class="sat">gr</td>' +
+                            '<td class="sat">' + satuan + '</td>' +
                             '<td>Rp. <span class="harga">' + harga + '</span></td>' +
                         '</tr>'
                 $('.item').append(dataItem)
+                nomor++
             }
         })
+        calcPriceMenu()
 
     }
 

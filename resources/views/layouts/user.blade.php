@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/mdb.min.css') }}" rel="stylesheet">
+    <!--<link href="{{ asset('css/mdb.min.css') }}" rel="stylesheet">-->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/compiled.min.css') }}" rel="stylesheet">
 
