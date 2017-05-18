@@ -19,7 +19,7 @@ class MenuController extends Controller
     public function index()
     {
         $userId = Auth::user()->id;
-        $data['menu'] = Menu::select('*')->where('id_user','=',$userId)->where('status_menu','=',1)->get();
+        $data['menu'] = Menu::select('*')->where('id_user','=',$userId)->where('status_menu','!=',2)->get();
         $data['userId'] = $userId;
         $data['title'] = 'Dashboard Menu';
         return view('catering.menu', $data);
@@ -56,7 +56,10 @@ class MenuController extends Controller
     public function updateMenu(Request $request, $id)
     {
         $menu = Menu::find($id);
-        $menu->nama_menu=$request->nama_menu;
+        if (isset($request->nama_menu))
+            $menu->nama_menu=$request->nama_menu;
+        if (isset($request->status_menu))
+            $menu->status_menu = $request->status_menu;
         $menu->save();
     }
 

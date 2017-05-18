@@ -44,14 +44,15 @@
                                 <div class="switch text-right">
                                     <label>
                                         Tampilkan menu
-                                        <input type="checkbox">
+                                        <?php $checked = ($a->status_menu) ? 'checked' : '' ?>
+                                        <input type="checkbox" id="in-status-menu" onchange="updateMenu({{$a->id}}, 'status_menu', this)" <?= $checked ?>>
                                         <span class="lever"></span>
                                     </label>
                                 </div><br>
                                 <h4 class="card-title">
                                     <b><span class="nama_menu">{{ $a->nama_menu }}</span></b>
                                     <a href="#!" class="change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
-                                    <a href="#!" class="edit" onclick="updateMenu({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
+                                    <a href="#!" class="edit" onclick="updateMenu({{$a->id}}, 'nama_menu', this)" style="display:none"><i class="icon ion-android-send"></i></a>
                                 </h4>
                                 <h4 class="card-text text-right orange-text"><b>Rp. {{ $a->harga }}</b></h4>
                                 <div class="read-more text-center" style="display:inherit;">
@@ -98,18 +99,24 @@
 
     function changeValue(id) {
         var val = $('#item_' + id + ' .nama_menu').html()
-        $('#item_' + id + ' .nama_menu').html('<input type="text" class="in-nama-menu" value="' + val + '" style="width:80%">')
+        $('#item_' + id + ' .nama_menu').html('<input type="text" id="in-nama-menu" value="' + val + '" style="width:80%">')
         $('#item_' + id + ' .change-value').hide()
         $('#item_' + id + ' .delete').hide()
         $('#item_' + id + ' .edit').show()
     }
 
-    function updateMenu(id) {
-        var val = $('#item_' + id + ' .in-nama-menu').val()
+    function updateMenu(id, attr, element) {
         var _token="{{ csrf_token() }}"
         var data={
-            nama_menu:val,
             _token:_token
+        }
+
+        if (attr == 'nama_menu') {
+            var val = $('#item_' + id + ' #in-nama-menu').val()
+            data.nama_menu = val
+        } else if (attr == 'status_menu') {
+            var val = (element.checked) ? 1 : 0
+            data.status_menu = val
         }
 
         $.ajaxSetup({
@@ -123,12 +130,12 @@
             url:'/dashboard/menu/' + id + '/updateMenu',
             data:data,
             success: function(result){
-
-                $('#item_' + id + ' .nama_menu').html(val)
-                $('#item_' + id + ' .change-value').show()
-                $('#item_' + id + ' .delete').show()
-                $('#item_' + id + ' .edit').hide()
-                //window.location.reload(true);
+                if (attr == 'nama_menu') {
+                    $('#item_' + id + ' .nama_menu').html(val)
+                    $('#item_' + id + ' .change-value').show()
+                    $('#item_' + id + ' .delete').show()
+                    $('#item_' + id + ' .edit').hide()
+                }
             },
             error: function(result){
                 console.log(result);
