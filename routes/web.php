@@ -21,6 +21,7 @@ Route::get('/catering/{id}', 'CateringController@catering');
 Route::get('/menu/{id}', 'CateringController@menu');
 Route::post('/checkout', 'TransaksiController@checkout');
 Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/cari?q={{pencarian}}', 'HomeController@cari');
 
 // CATERING
 Route::get('/dashboard/pesanan/', 'Catering\PesananController@index');

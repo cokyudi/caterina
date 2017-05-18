@@ -29,9 +29,10 @@ class HomeController extends Controller
         return view('home')->with($data);
     }
 
-    public function cari()
+    public function cari(Request $request)
     {
-        $data['card'] = Home::select('*')->where('status_catering','=',1)->get();
+        $cari = $request->pencarian;
+        $data['card'] = Home::select('*')->where('status_catering','=',1)->where('nama_catering','like','%'. $cari .'%')->get();
         $data['title'] = 'Cari "nama catering"';
         return view('cari', $data);
     }

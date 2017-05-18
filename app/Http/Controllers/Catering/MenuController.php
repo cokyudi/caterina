@@ -28,12 +28,18 @@ class MenuController extends Controller
     public function detail($id)
     {
         $userId = Auth::user()->id;
-        $data['detailItem'] = MenuItem::select('menu_item.*','item.nama_item', 'item.harga', 'item.qty', 'item.satuan', 'item.kategori')
-                                        ->join('item', 'menu_item.id_item', '=', 'item.id')
-                                        ->where('id_menu',$id)->get();
-        $data['MenuTitle'] = MenuItem::select('*')
+        //$data['detailItem'] = MenuItem::select('menu_item.*','item.nama_item', 'item.harga', 'item.qty', 'item.satuan', 'item.kategori')
+                                        //->join('item', 'menu_item.id_item', '=', 'item.id')
+                                        //->where('id_menu',$id)->get();
+        /*$data['MenuTitle'] = MenuItem::select('*')
                                         ->join('menu', 'menu_item.id_menu', '=', 'menu.id')
                                         ->where('id_menu',$id)->first();
+        $data['item'] = Item::select('*')->where('id_user','=',$userId)->where('status_item','=',1)->get();
+        $data['title'] = 'Detail Item';
+        $data['userId'] = $userId;
+
+        return view('catering.detailItem', $data);*/
+        $data['detailItem'] = Menu::where('id',$id)->with('items')->first();
         $data['item'] = Item::select('*')->where('id_user','=',$userId)->where('status_item','=',1)->get();
         $data['title'] = 'Detail Item';
         $data['userId'] = $userId;
