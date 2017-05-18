@@ -12,7 +12,7 @@
 @section('content')
 <div class="container" style="margin-top:96px">
     <a href="{{ URL::to('dashboard/menu') }}" class="btn btn-orange btn-sm"><i class="icon ion-android-arrow-back"></i> Kembali ke daftar menu</a>
-    <h2 class="h2-responsive wow fadeIn">{{ $MenuTitle->nama_menu }}</h2><br>
+    <h2 class="h2-responsive wow fadeIn">{{ $detailItem->nama_menu }}</h2><br>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -36,7 +36,7 @@
                                 <td>
                                     <span class="nama"></span>
                                     <input type="hidden" id="in-id-item">
-                                    <input type="hidden" id="in-id-menu" value="{{ $MenuTitle->id }}">
+                                    <input type="hidden" id="in-id-menu" value="{{ $detailItem->id }}">
                                     <button type="button" class="btn btn-theme btn-sm" data-toggle="modal" data-target="#basicExample" onclick="item='add'">
                                         pilih item
                                     </button>
@@ -46,7 +46,7 @@
                                         <input type="checkbox" class="filled-in" id="in-require">
                                     </fieldset>
                                 </td>
-                                <td><input type="text" id="in-qty" value="0" onchange="calcPrize('add')"></td>
+                                <td><input type="text" id="in-qty" value="0" onkeyup="calcPrize('add')"></td>
                                 <td>Rp. <span class="harga"></span>/<span class="qty_satuan"></span><span class="satuan"></span></td>
                                 <td>Rp. <span class="jumlah_harga"></span></td>
                                 <td>
@@ -55,13 +55,14 @@
                             </tr>
                             <!-- END ADD NEW ITEM -->
                             <!-- ALL ITEM -->
+                        <?php $i=1; ?>
                         <?php $total_harga = 0; ?>
-                        @foreach($detailItem as $key =>$a)
-                            <tr id="item_{{$a->id}}">
-                                <th scope="row">{{ $key+1 }}</th>
+                        @foreach($detailItem->items as $key => $a)
+                            <tr id="item_{{$a->pivot->id}}">
+                                <th scope="row">{{ $i,$i++ }}</th>
                                 <td>
                                     <span class="nama">{{$a->nama_item}}</span>
-                                    <input type="hidden" id="in-id-item" value="{{$a->id_item}}">
+                                    <input type="hidden" id="in-id-item" value="{{$a->pivot->id_item}}">
                                     <a class="select-item" data-toggle="modal" data-target="#basicExample" style="display:none" onclick="item={{$a->id}}"><i class="icon ion-edit"></i></a>
                                 </td>
                                 <td class="wajib">
@@ -69,13 +70,13 @@
                                         <input type="checkbox" id="in-require" disabled checked>
                                     </fieldset>
                                 </td>
-                                <td><span class="qty">{{$a->qty_default}}</span> {{$a->satuan}}</td>
+                                <td><span class="qty">{{$a->pivot->qty_default}}</span> {{$a->satuan}}</td>
                                 <td>Rp. <span class="harga">{{$a->harga}}</span>/<span class="qty_satuan">{{$a->qty}}</span><span class="satuan">{{$a->satuan}}</span></td>
-                                <td>Rp. <span class="jumlah_harga">{{$harga = ($a->harga/$a->qty)*$a->qty_default}}</span></td>
+                                <td>Rp. <span class="jumlah_harga">{{$harga = ($a->harga/$a->qty)*$a->pivot->qty_default}}</span></td>
                                 <td>
-                                    <a class="blue-text change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
-                                    <a class="red-text delete" onclick="deleteMenuItem({{$a->id}})"><i class="icon ion-close"></i></a>
-                                    <a class="blue-text edit" onclick="editMenuItem({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
+                                    <a class="blue-text change-value" onclick="changeValue({{$a->pivot->id}})"><i class="icon ion-edit"></i></a>
+                                    <a class="red-text delete" onclick="deleteMenuItem({{$a->pivot->id}})"><i class="icon ion-close"></i></a>
+                                    <a class="blue-text edit" onclick="editMenuItem({{$a->pivot->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
                                 </td>
                             </tr>
                             <?php $total_harga += $harga; ?>
@@ -105,7 +106,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h4>{{ $MenuTitle->nama_menu }}</h4>
+                <h4>{{ $detailItem->nama_menu }}</h4>
             @foreach($item as $a)
                 <a class="btn btn-warning btn-sm" onclick="selectItem({{$a->id}}, '{{$a->nama_item}}', {{$a->harga}}, {{$a->qty}}, ' {{$a->satuan}}', {{$a->kategori}})">{{$a->nama_item}}</a>
             @endforeach

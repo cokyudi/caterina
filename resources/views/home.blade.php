@@ -18,10 +18,12 @@
             <li>
                 <h2 class="h2-responsive wow fadeInUp title"><strong>Cari Catering</strong></h2>
             <li>
+            <form action="{{ url('/cari?=pencarian') }}" method="get">
+                {{ csrf_field() }}
                 <div class="row wow fadeIn" data-wow-delay="0.4s">
                     <div class="col-sm-9" style="padding: 0 4px">
                         <div class="md-form">
-                            <input type="text" placeholder="Cari nama catering">
+                            <input type="text" name="pencarian" placeholder="Cari nama catering">
                         </div>
                     </div>
                     <div class="col-sm-3" style="padding: 0 4px">
@@ -29,9 +31,10 @@
                             <button class="btn btn-lg btn-amber btn-block" style="margin-top:1px">Cari</button>
                         </div>
                     </div>
+            </form>
                     <div class="col-md-12">
                         <div class="md-form">
-                            <button class="btn btn-lg btn-theme">Catering dekat saya</button>
+                            <button type="submit" class="btn btn-lg btn-theme">Catering dekat saya</button>
                         </div>
                     </div>
                 </div>

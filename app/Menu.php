@@ -15,4 +15,9 @@ class Menu extends Model
         'status_menu'
     ];
     public $timestamps=false;
+
+    public function items()
+    {
+        return $this->belongsToMany('App\Item','menu_item','id_menu','id_item')->withPivot('qty_default','id','id_item');
+    }
 }
