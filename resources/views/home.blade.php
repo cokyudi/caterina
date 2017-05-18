@@ -28,13 +28,13 @@
                     </div>
                     <div class="col-sm-3" style="padding: 0 4px">
                         <div class="md-form">
-                            <button class="btn btn-lg btn-amber btn-block" style="margin-top:1px">Cari</button>
+                            <button type="submit" class="btn btn-lg btn-amber btn-block" style="margin-top:1px">Cari</button>
                         </div>
                     </div>
             </form>
                     <div class="col-md-12">
                         <div class="md-form">
-                            <button type="submit" class="btn btn-lg btn-theme">Catering dekat saya</button>
+                            <button class="btn btn-lg btn-theme">Catering dekat saya</button>
                         </div>
                     </div>
                 </div>

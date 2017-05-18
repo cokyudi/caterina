@@ -42,9 +42,10 @@
                             </div>
                             <div class="card-block">
                                 <h4 class="card-title"><b><span class="nama_menu">{{ $a->nama_menu }}</span></b></h4>
+                                <input type="file" class="gambar_menu" name="gambar_menu" style="display:none"/>
                                 <h4 class="card-text"><b>Rp. {{ $a->harga }}</b></h4>
                                 <div class="read-more text-center" style="display:inherit;">
-                                    <a href="#!" class="btn btn-theme change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
+                                    <a href="#!" class="btn btn-theme  change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
                                     <a href="#!" class="btn btn-theme edit" onclick="updateMenu({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
                                     <a href="#!" class="btn btn-danger delete" onclick="deleteMenu({{$a->id}})"><i class="icon ion-android-delete"></i></a>
                                 </div>
@@ -89,6 +90,7 @@
     function changeValue(id) {
         var val = $('#item_' + id + ' .nama_menu').html()
         $('#item_' + id + ' .nama_menu').html('<input type="text" class="in-nama-menu" value="' + val + '">')
+        $('#item_' + id + ' .gambar_menu').show()
         $('#item_' + id + ' .change-value').hide()
         $('#item_' + id + ' .delete').hide()
         $('#item_' + id + ' .edit').show()
