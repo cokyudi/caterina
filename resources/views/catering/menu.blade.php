@@ -32,7 +32,7 @@
                 <div class="col-md-4 text-right wow fadeIn" data-wow-delay="0.2s">
                     <a href="{{ URL::to('dashboard/item') }}" class="btn btn-theme">tambah item</a>
                 </div>
-                @foreach($menu as $a)
+                @foreach($menu as $key => $a)
                     <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
                         <div class="card" id="item_{{ $a->id }}">
                             <div class="view overlay hm-white-slight">
@@ -54,7 +54,7 @@
                                     <a href="#!" class="change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
                                     <a href="#!" class="edit" onclick="updateMenu({{$a->id}}, 'nama_menu', this)" style="display:none"><i class="icon ion-android-send"></i></a>
                                 </h4>
-                                <h4 class="card-text text-right orange-text"><b>Rp. {{ $a->harga }}</b></h4>
+                                <h4 class="card-text text-right orange-text"><b>Rp. {{ $harga[$key] }}</b></h4>
                                 <div class="read-more text-center" style="display:inherit;">
                                     <a href="{{ URL::to('dashboard/menu',$a->id) }}" class="btn btn-theme"><i class="icon ion-eye"></i></a>
                                     <a href="#!" class="btn btn-danger delete" onclick="deleteMenu({{$a->id}})"><i class="icon ion-android-delete"></i></a>
