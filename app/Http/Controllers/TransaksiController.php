@@ -53,6 +53,6 @@ class TransaksiController extends Controller
         }
         TransaksiItem::insert($data_item);
 
-        return redirect()->action('PesananController@index');
+        return redirect('pesanan');
     }
 }

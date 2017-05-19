@@ -17,14 +17,21 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/cari', 'HomeController@cari');
+
 Route::get('/catering/{id}', 'CateringController@catering');
 Route::get('/menu/{id}', 'CateringController@menu');
 Route::post('/checkout', 'TransaksiController@checkout');
+
+Route::get('/pesanan', 'PesananController@index');
+Route::post('/pesanan/bayar', 'PesananController@bayar');
+Route::get('/pesanan/diterima/{id}', 'PesananController@diterima');
+
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/cari?q={{pencarian}}', 'HomeController@cari');
 
-// CATERING
+// CATERING - PESANAN
 Route::get('/dashboard/pesanan/', 'Catering\PesananController@index');
+Route::get('/dashboard/pesanan/dikirim/{id}', 'Catering\PesananController@dikirim');
 
 // CATERING - MENU
 Route::get('/dashboard/menu/', 'Catering\MenuController@index');
@@ -38,7 +45,7 @@ Route::post('/dashboard/menu/{id}/deleteMenuItem', 'Catering\MenuController@dele
 Route::post('/dashboard/menu/{id}/updateMenuItem', 'Catering\MenuController@updateMenuItem');
 Route::post('/dashboard/menu/{id}/updateHargaMenu', 'Catering\MenuController@updateHargaMenu');
 
-// ITEM
+// CATERING - ITEM
 Route::get('/dashboard/item/', 'Catering\ItemController@index');
 Route::post('/dashboard/item/addItem/', ['as' => 'addItem', 'uses' => 'Catering\ItemController@addItem']);
 Route::post('/dashboard/item/{id}/updateItem', 'Catering\ItemController@updateItem');
