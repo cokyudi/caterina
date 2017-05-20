@@ -5,9 +5,6 @@
         .banner {
             background-image: url("{{ asset('img/big_picture.jpg') }}");
         }
-        .card .view {
-            background-image: url("{{ asset('img/big_picture.jpg') }}");
-        }
     </style>
 @endsection
 
