@@ -17,6 +17,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/cari', 'HomeController@cari');
+Route::get('/cateringBaru', 'UserController@activateCatering');
 
 Route::get('/catering/{id}', 'CateringController@catering');
 Route::get('/menu/{id}', 'CateringController@menu');

@@ -59,6 +59,9 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
+                                @if (!Auth::user()->status_catering)
+                                    <a class="dropdown-item" href="{{ URL::to('cateringBaru') }}">Daftarkan Catering Saya</a>
+                                @endif
                             </div>
                         </li>
                         @if (Auth::user()->status_catering)

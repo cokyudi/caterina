@@ -10,6 +10,11 @@ use App\TransaksiItem;
 
 class TransaksiController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function checkout(Request $request)
     {
         // data transaksi item

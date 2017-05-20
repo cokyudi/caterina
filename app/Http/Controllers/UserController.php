@@ -6,23 +6,14 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function signup()
+    public function __construct()
     {
-        # code...
+        $this->middleware('auth');
     }
 
-    public function login()
+    public function activateCatering()
     {
-        # code...
-    }
-
-    public function profil()
-    {
-        # code...
-    }
-
-    public function edit()
-    {
-        # code...
+        $data['title'] = 'Daftarkan Catering Saya';
+        return view('catering.daftarCatering', $data);
     }
 }
