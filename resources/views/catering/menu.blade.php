@@ -120,6 +120,7 @@
                 $('#item_' + id + ' .change-value').show()
                 $('#item_' + id + ' .delete').show()
                 $('#item_' + id + ' .edit').hide()
+                $('#item_' + id + ' .gambar_menu').hide()
                 //window.location.reload(true);
             },
             error: function(result){
