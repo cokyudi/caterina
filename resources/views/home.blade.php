@@ -5,9 +5,6 @@
         .banner {
             background-image: url("{{ asset('img/big_picture.jpg') }}");
         }
-        .card .view {
-            background-image: url("{{ asset('img/big_picture.jpg') }}");
-        }
     </style>
 @endsection
 
@@ -53,7 +50,7 @@
         @foreach($card as $a)
         <div class="col-lg-4 col-md-6 wow fadeIn" data-wow-delay="0.2s">
             <div class="card">
-                <div class="view overlay hm-white-slight">
+                <div class="view overlay hm-white-slight" style="background-image: url('{{asset('storage/'.$a->foto_catering)}}')">
                     <a href="{{ URL::to('catering/'.$a->id) }}">
                         <div class="mask waves-effect waves-light"></div>
                     </a>
