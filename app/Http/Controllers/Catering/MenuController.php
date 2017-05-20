@@ -21,7 +21,6 @@ class MenuController extends Controller
         $userId = Auth::user()->id;
         $data['menu'] = Menu::where('id_user','=',$userId)->where('status_menu','!=',2)->with('items')->get();
         $data['harga'] = $this->calcPrice($data['menu'], $userId);
-        var_dump($data['harga']);
         $data['userId'] = $userId;
         $data['title'] = 'Dashboard Menu';
         return view('catering.menu', $data);
@@ -41,7 +40,10 @@ class MenuController extends Controller
                 }
             }
         }
-        return $harga;
+        if (isset($harga)) {
+            return $harga;
+        }
+
     }
 
     public function detail($id)

@@ -98,9 +98,11 @@
 @section('javascript')
 
 <script type="text/javascript">
+var marker
+
 function myMap() {
     var mapCanvas = document.getElementById("map");
-    var myCenter=new google.maps.LatLng(51.508742,-0.120850);
+    var myCenter=new google.maps.LatLng(-8.4550569,114.5110624);
     var mapOptions = {center: myCenter, zoom: 5};
     var map = new google.maps.Map(mapCanvas, mapOptions);
     google.maps.event.addListener(map, 'click', function(event) {
@@ -112,7 +114,7 @@ function placeMarker(map, location) {
     if (marker) {
         marker.setPosition(location);
     } else {
-        var marker = new google.maps.Marker({
+        marker = new google.maps.Marker({
             position: location,
             map: map
         });
