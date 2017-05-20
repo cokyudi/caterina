@@ -1,13 +1,5 @@
 @extends('layouts.user')
 
-@section('style')
-    <style media="screen">
-        .card .view {
-            background-image: url("{{ asset('img/big_picture.jpg') }}");
-        }
-    </style>
-@endsection
-
 @section('content')
 <div class="view hm-black-strong banner" style="margin-top:48px;height:300px">
     <div class="full-bg-img flex-center">
@@ -18,7 +10,7 @@
                 <div class="row wow fadeIn" data-wow-delay="0.4s">
                     <div class="col-sm-9" style="padding: 0 4px">
                         <div class="md-form">
-                            <input type="text" name="pencarian" placeholder="Cari nama catering">
+                            <input type="text" name="pencarian" placeholder="Cari nama catering" value="{{$cari}}">
                         </div>
                     </div>
                     <div class="col-sm-3" style="padding: 0 4px">
@@ -48,8 +40,8 @@
         @foreach($card as $a)
         <div class="col-lg-4 col-md-6 wow fadeIn" data-wow-delay="0.2s">
             <div class="card">
-                <div class="view overlay hm-white-slight">
-                    <a href="#!">
+                <div class="view overlay hm-white-slight" style="background-image: url('{{asset('storage/'.$a->foto_catering)}}')">
+                    <a href="{{ URL::to('catering/'.$a->id) }}">
                         <div class="mask waves-effect waves-light"></div>
                     </a>
                 </div>
@@ -59,7 +51,7 @@
                     <p class="card-text-small">No Telp: {{ $a->no_telp_catering }}</p>
                     <p class="card-text">{{ $a->deskripsi }}</p>
                     <div class="read-more text-center">
-                        <a href="#!" class="btn btn-theme">Lihat catering</a>
+                        <a href="{{ URL::to('catering/'.$a->id) }}" class="btn btn-theme">Lihat catering</a>
                     </div>
                 </div>
             </div>

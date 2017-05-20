@@ -18,6 +18,6 @@ class Menu extends Model
 
     public function items()
     {
-        return $this->belongsToMany('App\Item','menu_item','id_menu','id_item')->withPivot('qty_default','id','id_item');
+        return $this->belongsToMany('App\Item','menu_item','id_menu','id_item')->withPivot('qty_default','id','id_item', 'required');
     }
 }
