@@ -99,6 +99,8 @@
 
     function changeValue(id) {
         var val = $('#item_' + id + ' .nama_menu').html()
+        //$('#item_' + id + ' .nama_menu').html('<input type="text" class="in-nama-menu" value="' + val + '">')
+        $('#item_' + id + ' .gambar_menu').show()
         $('#item_' + id + ' .nama_menu').html('<input type="text" id="in-nama-menu" value="' + val + '" style="width:80%">')
         $('#item_' + id + ' .change-value').hide()
         $('#item_' + id + ' .delete').hide()
@@ -130,6 +132,7 @@
             url:'/dashboard/menu/' + id + '/updateMenu',
             data:data,
             success: function(result){
+
                 if (attr == 'nama_menu') {
                     $('#item_' + id + ' .nama_menu').html(val)
                     $('#item_' + id + ' .change-value').show()
