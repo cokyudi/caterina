@@ -3,7 +3,6 @@
 @section('style')
     <style media="screen">
         .card .view {
-            background-image: url("{{ asset('img/big_picture.jpg') }}");
             height: 200px;
         }
     </style>
@@ -35,7 +34,7 @@
                 @foreach($menu as $key => $a)
                     <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
                         <div class="card" id="item_{{ $a->id }}">
-                            <div class="view overlay hm-white-slight">
+                            <div class="view overlay hm-white-slight" style="background-image: url('{{ $a->gambar_menu }}');">
                                 <a href="{{ URL::to('dashboard/menu',$a->id) }}">
                                     <div class="mask waves-effect waves-light"></div>
                                 </a>

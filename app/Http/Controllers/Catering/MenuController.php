@@ -19,7 +19,7 @@ class MenuController extends Controller
     public function index()
     {
         $userId = Auth::user()->id;
-        $data['menu'] = Menu::where('id_user','=',$userId)->where('status_menu','!=',2)->with('items')->get();
+        $data['menu'] = Menu::where('id_user','=',$userId)->where('status_menu','!=',2)->with('items','gambarMenu')->get();
         $data['harga'] = $this->calcPrice($data['menu'], $userId);
         $data['userId'] = $userId;
         $data['title'] = 'Dashboard Menu';
