@@ -41,12 +41,7 @@
                                 </a>
                             </div>
                             <div class="card-block">
-                                <h4 class="card-title"><b><span class="nama_menu">{{ $a->nama_menu }}</span></b></h4>
-                                <input type="file" class="gambar_menu" name="gambar_menu" style="display:none"/>
-                                <h4 class="card-text"><b>Rp. {{ $a->harga }}</b></h4>
-                                <div class="read-more text-center" style="display:inherit;">
-                                    <a href="#!" class="btn btn-theme  change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
-                                    <a href="#!" class="btn btn-theme edit" onclick="updateMenu({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
+                                <div class="switch text-right">
                                     <label>
                                         Tampilkan menu
                                         <?php $checked = ($a->status_menu) ? 'checked' : '' ?>
@@ -138,12 +133,6 @@
             data:data,
             success: function(result){
 
-                $('#item_' + id + ' .nama_menu').html(val)
-                $('#item_' + id + ' .change-value').show()
-                $('#item_' + id + ' .delete').show()
-                $('#item_' + id + ' .edit').hide()
-                $('#item_' + id + ' .gambar_menu').hide()
-                //window.location.reload(true);
                 if (attr == 'nama_menu') {
                     $('#item_' + id + ' .nama_menu').html(val)
                     $('#item_' + id + ' .change-value').show()
