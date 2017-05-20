@@ -32,7 +32,7 @@
                 <div class="col-md-4 text-right wow fadeIn" data-wow-delay="0.2s">
                     <a href="{{ URL::to('dashboard/item') }}" class="btn btn-theme">tambah item</a>
                 </div>
-                @foreach($menu as $a)
+                @foreach($menu as $key => $a)
                     <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
                         <div class="card" id="item_{{ $a->id }}">
                             <div class="view overlay hm-white-slight">
@@ -47,6 +47,21 @@
                                 <div class="read-more text-center" style="display:inherit;">
                                     <a href="#!" class="btn btn-theme  change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
                                     <a href="#!" class="btn btn-theme edit" onclick="updateMenu({{$a->id}})" style="display:none"><i class="icon ion-android-send"></i></a>
+                                    <label>
+                                        Tampilkan menu
+                                        <?php $checked = ($a->status_menu) ? 'checked' : '' ?>
+                                        <input type="checkbox" id="in-status-menu" onchange="updateMenu({{$a->id}}, 'status_menu', this)" <?= $checked ?>>
+                                        <span class="lever"></span>
+                                    </label>
+                                </div><br>
+                                <h4 class="card-title">
+                                    <b><span class="nama_menu">{{ $a->nama_menu }}</span></b>
+                                    <a href="#!" class="change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
+                                    <a href="#!" class="edit" onclick="updateMenu({{$a->id}}, 'nama_menu', this)" style="display:none"><i class="icon ion-android-send"></i></a>
+                                </h4>
+                                <h4 class="card-text text-right orange-text"><b>Rp. {{ $harga[$key] }}</b></h4>
+                                <div class="read-more text-center" style="display:inherit;">
+                                    <a href="{{ URL::to('dashboard/menu',$a->id) }}" class="btn btn-theme"><i class="icon ion-eye"></i></a>
                                     <a href="#!" class="btn btn-danger delete" onclick="deleteMenu({{$a->id}})"><i class="icon ion-android-delete"></i></a>
                                 </div>
                             </div>
@@ -89,19 +104,26 @@
 
     function changeValue(id) {
         var val = $('#item_' + id + ' .nama_menu').html()
-        $('#item_' + id + ' .nama_menu').html('<input type="text" class="in-nama-menu" value="' + val + '">')
+        //$('#item_' + id + ' .nama_menu').html('<input type="text" class="in-nama-menu" value="' + val + '">')
         $('#item_' + id + ' .gambar_menu').show()
+        $('#item_' + id + ' .nama_menu').html('<input type="text" id="in-nama-menu" value="' + val + '" style="width:80%">')
         $('#item_' + id + ' .change-value').hide()
         $('#item_' + id + ' .delete').hide()
         $('#item_' + id + ' .edit').show()
     }
 
-    function updateMenu(id) {
-        var val = $('#item_' + id + ' .in-nama-menu').val()
+    function updateMenu(id, attr, element) {
         var _token="{{ csrf_token() }}"
         var data={
-            nama_menu:val,
             _token:_token
+        }
+
+        if (attr == 'nama_menu') {
+            var val = $('#item_' + id + ' #in-nama-menu').val()
+            data.nama_menu = val
+        } else if (attr == 'status_menu') {
+            var val = (element.checked) ? 1 : 0
+            data.status_menu = val
         }
 
         $.ajaxSetup({
@@ -122,6 +144,12 @@
                 $('#item_' + id + ' .edit').hide()
                 $('#item_' + id + ' .gambar_menu').hide()
                 //window.location.reload(true);
+                if (attr == 'nama_menu') {
+                    $('#item_' + id + ' .nama_menu').html(val)
+                    $('#item_' + id + ' .change-value').show()
+                    $('#item_' + id + ' .delete').show()
+                    $('#item_' + id + ' .edit').hide()
+                }
             },
             error: function(result){
                 console.log(result);

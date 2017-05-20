@@ -121,7 +121,11 @@
                         <h4>Total: <b>Rp <span id="total_harga">20000</span></b></h4>
                     </div><br>
                     <div class="read-more text-center">
-                        <button type="submit" form="form-pesan" class="btn btn-theme">Pesan Sekarang</button>
+                        @if(Auth::guest())
+                            <a class="btn btn-theme" href="{{ route('login') }}">login sebelum memesan</a>
+                        @else
+                            <button type="submit" form="form-pesan" class="btn btn-theme">Pesan Sekarang</button>
+                        @endif
                     </div>
                 </div>
             </div>

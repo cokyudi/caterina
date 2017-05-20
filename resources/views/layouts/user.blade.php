@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <!--<link href="{{ asset('css/mdb.min.css') }}" rel="stylesheet">-->
+    <link href="{{ asset('css/mdb.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/compiled.min.css') }}" rel="stylesheet">
 
@@ -53,8 +53,8 @@
                         <li class="nav-item btn-group">
                             <a class="nav-link dropdown-toggle" id="dropdownUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->nama_user }}</a>
                             <div class="dropdown-menu" aria-labelledby="dropdownUser">
-                                <a class="dropdown-item" href="{{ URL::to('profile') }}">Profil</a>
-                                <a class="dropdown-item" href="{{ URL::to('pesanan') }}">Pesanan</a>
+                                <a class="dropdown-item" href="{{ URL::to('profile') }}">Profil Saya</a>
+                                <a class="dropdown-item" href="{{ URL::to('pesanan') }}">Pesanan Saya</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
@@ -65,8 +65,8 @@
                             <li class="nav-item btn-group">
                                 <a class="nav-link dropdown-toggle" id="dropdownCatering" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->nama_catering }}</a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownCatering">
-                                    <a class="dropdown-item" href="{{ URL::to('dashboard/profile') }}">Profil</a>
-                                    <a class="dropdown-item" href="{{ URL::to('dashboard/pesanan') }}">Pesanan</a>
+                                    <a class="dropdown-item" href="{{ URL::to('dashboard/profile') }}">Profil Catering</a>
+                                    <a class="dropdown-item" href="{{ URL::to('dashboard/pesanan') }}">Pesanan Catering</a>
                                     <a class="dropdown-item" href="{{ URL::to('dashboard/menu') }}">Menu</a>
                                 </div>
                             </li>

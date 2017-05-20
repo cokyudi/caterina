@@ -236,6 +236,7 @@
     }
 
     function deleteMenuItem(id){
+
         var _token="{{ csrf_token() }}"
         var data = {
             _token:_token
@@ -251,8 +252,11 @@
             method:'POST',
             url:'/dashboard/menu/' + id + '/deleteMenuItem',
             data:data,
-            success: function(data){
-                $('.harga_menu').html(data)
+            success: function(){
+                var harga_menu = $('.harga_menu').html()
+                var harga = $('#item_' + id + ' .jumlah_harga').html()
+                harga_menu -= harga
+                $('.harga_menu').html(harga_menu)
                 $('#item_'+id).remove()
             },
             error: function(data){
