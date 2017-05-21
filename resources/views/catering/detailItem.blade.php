@@ -44,6 +44,7 @@
                                 <td>
                                     <fieldset class="form-group">
                                         <input type="checkbox" class="filled-in" id="in-require">
+                                        <label for="in-require"></label>
                                     </fieldset>
                                 </td>
                                 <td><input type="text" id="in-qty" value="0" onkeyup="calcPrize('add')"></td>
@@ -67,7 +68,9 @@
                                 </td>
                                 <td class="wajib">
                                     <fieldset class="form-group">
-                                        <input type="checkbox" id="in-require" disabled checked>
+                                        <?php $checked = ($a->pivot->required) ? 'checked':'' ?>
+                                        <input type="checkbox" class="filled-in" id="in-require-{{$a->pivot->id}}" disabled {{$checked}}>
+                                        <label for="in-require-{{$a->pivot->id}}"></label>
                                     </fieldset>
                                 </td>
                                 <td><span class="qty">{{$a->pivot->qty_default}}</span> {{$a->satuan}}</td>
@@ -133,11 +136,13 @@
         var id_item = $('#item_add #in-id-item').val()
         var id_menu = $('#item_add #in-id-menu').val()
         var qty = $('#item_add #in-qty').val()
+        var required = ($('input#in-require').prop('checked') ? 1 : 0)
         var _token= "{{ csrf_token() }}"
         var data = {
             id_menu:id_menu,
             id_item:id_item,
             qty_default:qty,
+            required:required,
             _token:_token
         }
 
@@ -175,7 +180,7 @@
 
     function changeValue(id) {
         $('#item_' + id + ' .select-item').show()
-        $('#item_' + id + ' #in-require').removeAttr("disabled")
+        $('#item_' + id + ' #in-require-' + id).removeAttr("disabled")
 
         var qty = $('#item_' + id + ' .qty')
         var qty_val = qty.html()
@@ -188,15 +193,17 @@
 
     function editMenuItem(id) {
         $('#item_' + id + ' .select-item').hide()
-        $('#item_' + id + ' #in-require').attr("disabled", true)
+        $('#item_' + id + ' #in-require-' + id).attr("disabled", true)
 
         var qty = $('#item_' + id + ' .qty')
         var qty_val = $('#item_' + id + ' #in-qty').val()
         var id_item_val = $('#item_' + id + ' #in-id-item').val()
+        var required = ($('input#in-require-' + id).prop('checked') ? 1 : 0)
         var _token="{{ csrf_token() }}"
         var data = {
             qty_default:qty_val,
             id_item:id_item_val,
+            required:required,
             _token:_token
         }
 

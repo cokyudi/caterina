@@ -2,12 +2,6 @@
 
 @section('style')
     <style media="screen">
-        .banner {
-            background-image: url("{{ asset('img/big_picture.jpg') }}");
-        }
-        .card .view {
-            background-image: url("{{ asset('img/big_picture.jpg') }}");
-        }
         .display-picture {
             height: 200px;
             width: 200px;
@@ -19,18 +13,21 @@
             -moz-background-size: cover;
             background-size: cover;
         }
+        .card .view {
+            background-image: url("{{ asset('img/big_picture.jpg') }}");
+        }
     </style>
 @endsection
 
 @section('content')
 
-<div class="view hm-black-strong banner" style="margin-top:48px;height:300px">
+<div class="view hm-black-strong banner" style="margin-top:48px;height:300px;background-image: url('{{asset('storage/'.$catering->foto_catering)}}')">
     <div class="full-bg-img"></div>
 </div>
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
-            <div class="display-picture" style="background-image: url('{{ asset('img/big_picture.jpg') }}')"></div>
+            <div class="display-picture" style="background-image: url('{{asset('storage/'.$catering->foto_catering)}}')"></div>
         </div>
         <div class="col-sm-9" style="padding-top:24px">
             <h4><b>{{ $catering->nama_catering }}</b></h4>

@@ -28,6 +28,7 @@
                             <div class="card-block">
                                 <?php
                                 $status = '';
+                                $color = '';
                                     switch ($a->status_transaksi) {
                                         case 1:
                                             $status = 'Belum dibayar';

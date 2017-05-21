@@ -151,21 +151,37 @@
                             @if($kat->id == $a->kategori)
                                 <?php
                                     $checked = '';
+                                    $disabled = '';
                                     foreach ($menu_item as $key => $mi) {
                                         if ($mi->id_item == $a->id) {
                                             $checked = 'checked';
+                                            $disabled = ($mi->required == 1) ? 'disabled':'';
                                             break;
                                         }
                                     }
                                 ?>
+                                @if($kat->id == 1)
+                                    <?php
+                                        $disabled = '';
+                                        foreach ($menu_item as $key => $mi) {
+                                            if ($mi->required == 1 and $mi->kategori == 1) {
+                                                $disabled = 'disabled';
+                                                break;
+                                            }
+                                        }
+                                        $type = 'radio';
+                                    ?>
+                                @else
+                                    <?php $type = 'checkbox' ?>
+                                @endif
                                 <fieldset class="form-group col-md-4">
-                                    <input type="checkbox" class="filled-in" id="checkbox{{ $a->id }}" {{ $checked }}
+                                    <input type="{{$type}}" name="item" class="filled-in with-gap check-item" id="{{ $type.$a->id }}" {{ $checked }} {{$disabled}}
                                         value="{{ $a->nama_item }}"
                                         data-id="{{ $a->id }}"
                                         data-harga="{{ $a->harga }}"
                                         data-qty="{{ $a->qty }}"
                                         data-satuan="{{ $a->satuan }}">
-                                    <label for="checkbox{{ $a->id }}">{{ $a->nama_item }}</label>
+                                    <label for="{{ $type.$a->id }}">{{ $a->nama_item }}</label>
                                 </fieldset>
                             @endif
                         @endforeach
@@ -227,15 +243,17 @@
 
         var nomor = 1
         $('.item').html('')
-        $('.filled-in:checkbox:checked').each(function () {
+        $('.check-item:checked').each(function () {
             if (this.checked) {
                 var idItem = $(this).data('id')
                 var namaItem = $(this).val()
                 var qty = $(this).data('qty')
                 var harga = $(this).data('harga')
                 var satuan = $(this).data('satuan')
+                var index = nomor-1
 
                 var dataItem = '<tr id="item_' + idItem + '">' +
+                            '<input type="hidden" name="id_item[' + index + ']" value="' + idItem + '" form="form-pesan">' +
                             '<th scope="row">' + nomor + '</th>' +
                             '<td class="nama">' + namaItem + '</td>' +
                             '<td class="qty">' +

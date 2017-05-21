@@ -62,7 +62,7 @@ class MenuController extends Controller
 
         return view('catering.detailItem', $data);*/
         $data['detailItem'] = Menu::where('id',$id)->with('items')->first();
-        $data['item'] = Item::select('*')->where('id_user','=',$userId)->where('status_item','=',1)->get();
+        $data['item'] = Item::select('*')->where('id_user','=',$userId)->where('status_item','=',1)->orderBy('kategori', 'ASC')->get();
         $data['title'] = 'Detail Item';
         $data['userId'] = $userId;
 
@@ -101,6 +101,7 @@ class MenuController extends Controller
 
         $menuItem->qty_default = $request->qty_default;
         $menuItem->id_item = $request->id_item;
+        $menuItem->required = $request->required;
         $menuItem->save();
     }
 
