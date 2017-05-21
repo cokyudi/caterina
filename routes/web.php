@@ -41,6 +41,9 @@ Route::get('/dashboard/menu/{id}', 'Catering\MenuController@detail');
 Route::post('/dashboard/menu/addMenu/', ['as' => 'addMenu', 'uses' => 'Catering\MenuController@addMenu']);
 Route::post('/dashboard/menu/{id}/updateMenu', 'Catering\MenuController@updateMenu');
 Route::post('/dashboard/menu/{id}/deleteMenu', 'Catering\MenuController@deleteMenu');
+Route::post('/dashboard/menu/tambahGambar', 'Catering\MenuController@tambahGambar');
+Route::post('/dashboard/menu/updateGambar', 'Catering\MenuController@updateGambar');
+
 // CATERING - MENU ITEM
 Route::post('/dashboard/menu/addMenuItem/', ['as' => 'addMenuItem', 'uses' => 'Catering\MenuController@addMenuItem']);
 Route::post('/dashboard/menu/{id}/deleteMenuItem', 'Catering\MenuController@deleteMenuItem');

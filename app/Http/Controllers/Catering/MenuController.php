@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Menu;
 use App\MenuItem;
 use App\Item;
+use App\GambarMenu;
 use Auth;
 
 class MenuController extends Controller
@@ -107,5 +108,27 @@ class MenuController extends Controller
     {
         $menuItem = MenuItem::find($id);
         $menuItem->delete();
+    }
+
+    public function tambahGambar(Request $request){
+        if ($request->_token) {
+            $gambarMenu = new GambarMenu;
+            $gambarMenu->id_menu = $request->id_menu;
+            //if($request->hasFile('gambar_menu')){
+                $path = $request->file('gambar_menu')->store('public/gambar_menu');
+                $gambarMenu->gambar_menu = str_replace('public/gambar_menu', '', $path);
+            //}
+            $gambarMenu->save();
+        }
+        return redirect('/dashboard/menu');
+    }
+
+    public function updateGambar(Request $request){
+        $id = $request->id;
+        $gambarMenu = GambarMenu::find($id);
+        $path = $request->file('gambar_menu')->store('public/gambar_menu');
+        $gambarMenu->gambar_menu = str_replace('public/gambar_menu', '', $path);
+        $gambarMenu->save();
+        return redirect('/dashboard/menu');
     }
 }

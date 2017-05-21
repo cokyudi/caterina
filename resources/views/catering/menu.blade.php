@@ -34,10 +34,17 @@
                 @foreach($menu as $key => $a)
                     <div class="col-lg-4 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
                         <div class="card" id="item_{{ $a->id }}">
-                            <div class="view overlay hm-white-slight" style="background-image: url('{{ $a->gambar_menu }}');">
-                                <a href="{{ URL::to('dashboard/menu',$a->id) }}">
+                    <?php if(isset($a->gambarMenu->gambar_menu)){ ?>
+                            <div class="view overlay hm-white-slight" style="background-image: url('{{asset('storage/gambar_menu/'.$a->gambarMenu->gambar_menu)}}');">
+                                <a href="#" data-toggle="modal" data-target="#modalUpdate" class="openModalUpdate" data-id="{{$a->gambarMenu->id}}">
                                     <div class="mask waves-effect waves-light"></div>
                                 </a>
+                    <?php }else{ ?>
+                            <div class="view overlay hm-white-slight" style="background-image: url('{{asset('storage/gambar_menu/carbonara.jpg')}}');">
+                                <a href="#" data-toggle="modal" data-target="#basicExample" class="openModalTambah" data-id="{{$a->id}}">
+                                    <div class="mask waves-effect waves-light"></div>
+                                </a>
+                    <?php   } ?>
                             </div>
                             <div class="card-block">
                                 <div class="switch text-right">
@@ -67,7 +74,81 @@
     </div>
 </div>
 
+<div class="modal fade" id="basicExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">Tambah Gambar Menu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modalBodyTambah" class="modal-body">
+                <form id="form-gambar" action="{{ url('/dashboard/menu/tambahGambar') }}" method="post" enctype="multipart/form-data">
+                    <div class="file-field">
+                        <div class="btn btn-primary btn-sm">
+                            <span>Choose file</span>
+                            <input type="file" name="gambar_menu" required>
+                        </div></br>
+                        <div class="file-path-wrapper">
+                           <input class="file-path validate" type="text" placeholder="Upload Gambar Menu">
+                        </div>
+                    </div>
+                    <input type="hidden" id="id" name="id_menu">
+                    {{ csrf_field() }}
+            </div>
+            <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">Update Gambar Menu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modalBodyUpdate" class="modal-body">
+                <form id="form-gambar" action="{{ url('/dashboard/menu/updateGambar') }}" method="post" enctype="multipart/form-data">
+                    <div class="file-field">
+                        <div class="btn btn-primary btn-sm">
+                            <span>Choose file</span>
+                            <input type="file" name="gambar_menu" required>
+                        </div></br>
+                        <div class="file-path-wrapper">
+                           <input class="file-path validate" type="text" placeholder="Upload Gambar Menu">
+                        </div>
+                    </div>
+                    <input type="hidden" id="idGambar" name="id">
+                    {{ csrf_field() }}
+            </div>
+            <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
+
+
+    $(document).on("click", ".openModalTambah", function () {
+         var id = $(this).data('id');
+         $("#modalBodyTambah #id").val( id );
+    });
+
+    $(document).on("click", ".openModalUpdate", function () {
+         var id = $(this).data('id');
+         $("#modalBodyUpdate #idGambar").val( id );
+    });
+
 
     function addMenu() {
         var nama_menu = $('#form-addMenu #in-nama-menu').val()
@@ -169,6 +250,25 @@
                 alert("error");
             }
         })
+    }
+
+    function uploadGambar(id){
+        $('#item_' + id + ' .sendFoto').show()
+        $('#item_' + id + ' .tambahFoto').show()
+        $('#item_' + id + ' .closeFoto').show()
+        $('#item_' + id + ' .file-path').show()
+
+        $('#item_' + id + ' #in-gambar-menu').click();
+    }
+
+    function closeGambar(id){
+        $('#item_' + id + ' .sendFoto').hide()
+        $('#item_' + id + ' .closeFoto').hide()
+        $('#item_' + id + ' .tambahFoto').hide()
+    }
+
+    function tambahGambar(id){
+        $("#form-gambar").submit();
     }
 
 </script>
