@@ -22,6 +22,7 @@ Route::post('/cateringBaru', 'UserController@activateCatering');
 
 Route::get('/catering/{id}', 'CateringController@catering');
 Route::get('/menu/{id}', 'CateringController@menu');
+Route::get('/profile', 'UserController@profile');
 Route::post('/checkout', 'TransaksiController@checkout');
 
 Route::get('/pesanan', 'PesananController@index');

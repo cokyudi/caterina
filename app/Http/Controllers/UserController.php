@@ -39,4 +39,10 @@ class UserController extends Controller
         $data['title'] = 'Daftarkan Catering Saya';
         return view('catering.daftarCatering', $data);
     }
+
+    public function profile()
+    {
+        $data['title'] = 'Profile';
+        return view('profile', $data);
+    }
 }
