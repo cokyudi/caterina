@@ -13,9 +13,7 @@
             -moz-background-size: cover;
             background-size: cover;
         }
-        .card .view {
-            background-image: url("{{ asset('img/big_picture.jpg') }}");
-        }
+
     </style>
 @endsection
 
@@ -43,7 +41,11 @@
         @foreach($menu as $a)
             <div class="col-lg-3 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
                 <div class="card">
-                    <div class="view overlay hm-white-slight">
+        <?php if(isset($a->gambarMenu->gambar_menu)){ ?>
+                    <div class="view overlay hm-white-slight" style="background-image: url('{{asset('storage/gambar_menu/'.$a->gambarMenu->gambar_menu) }}');">
+        <?php }else{ ?>
+                    <div class="view overlay hm-white-slight" style="background-image: url('{{asset('img/big_picture.jpg')}}');">
+        <?php   } ?>
                         <a href="{{ URL::to('menu/'.$a->id) }}">
                             <div class="mask waves-effect waves-light"></div>
                         </a>

@@ -15,6 +15,7 @@
     <link href="{{ asset('css/mdb.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/compiled.min.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
 
     <script>
         window.Laravel = {!! json_encode([

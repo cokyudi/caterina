@@ -20,4 +20,9 @@ class Menu extends Model
     {
         return $this->belongsToMany('App\Item','menu_item','id_menu','id_item')->withPivot('qty_default','id','id_item', 'required');
     }
+
+    public function gambarMenu()
+    {
+        return $this->hasOne('App\GambarMenu','id_menu');
+    }
 }
