@@ -40,7 +40,7 @@
                                     <div class="mask waves-effect waves-light"></div>
                                 </a>
                     <?php }else{ ?>
-                            <div class="view overlay hm-white-slight" style="background-image: url('{{asset('storage/gambar_menu/carbonara.jpg')}}');">
+                            <div class="view overlay hm-white-slight" style="background-image: url('{{asset('img/big_picture.jpg')}}');">
                                 <a href="#" data-toggle="modal" data-target="#basicExample" class="openModalTambah" data-id="{{$a->id}}">
                                     <div class="mask waves-effect waves-light"></div>
                                 </a>

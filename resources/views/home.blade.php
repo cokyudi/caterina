@@ -69,4 +69,6 @@
         @endforeach
     </div>
 </div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRI3ZQK76nXPfIjsbSExgClCuGProkGp8&callback=initMap" async defer></script>
 @endsection
