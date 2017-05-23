@@ -31,7 +31,7 @@
             </form>
                     <div class="col-md-12">
                         <div class="md-form">
-                            <button class="btn btn-lg btn-theme">Catering dekat saya</button>
+                            <button type="button" onclick="find()" class="btn btn-lg btn-theme" data-toggle="modal" data-target="#mdl-map">Catering dekat saya</button>
                         </div>
                     </div>
                 </div>
@@ -70,5 +70,71 @@
     </div>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRI3ZQK76nXPfIjsbSExgClCuGProkGp8&callback=initMap" async defer></script>
+<div class="modal fade" id="mdl-map" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100" id="myModalLabel">Tentukan Lokasi Anda Saat ini</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ url('/cariTerdekat') }}">
+                    {{ csrf_field() }}
+                    <input type="text" id="latMap" name="lat">
+                    <input type="text" id="lngMap" name="lng">
+                    <button type="submit" class="btn btn-orange">pilih lokasi</button>
+                </form>
+                <div id="map" style="width:100%;height:500px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var marker;
+    var lat;
+    var lng;
+
+    function find(){
+        var mapCanvas = document.getElementById("map");
+        var myCenter=new google.maps.LatLng(-6.8555315754820265, 113.1646728515625);
+        var mapOptions = {center: myCenter, zoom: 8};
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+        google.maps.event.addListener(map, 'click', function(event) {
+            placeMarker(map, event.latLng);
+        });
+    }
+
+    function placeMarker(map, location) {
+        if (marker) {
+            marker.setPosition(location);
+        } else {
+            marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
+        lat = marker.position.lat();
+        lng = marker.position.lng();
+        $('.modal-body #latMap').val(lat);
+        $('.modal-body #lngMap').val(lng);
+
+        var infowindow = new google.maps.InfoWindow({
+            content: 'Latitude: ' + location.lat() + '<br>Longitude: ' + location.lng()
+        });
+        infowindow.open(map,marker);
+    }
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRI3ZQK76nXPfIjsbSExgClCuGProkGp8&callback=find" async defer></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#mdl-map').on('shown.bs.modal', function(){
+            google.maps.event.trigger(map, "resize");
+        });
+    });
+</script>
 @endsection

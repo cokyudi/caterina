@@ -17,6 +17,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/cari', 'HomeController@cari');
+Route::post('/cariTerdekat', 'HomeController@cariTerdekat');
 Route::get('/cateringBaru', 'UserController@activateCatering');
 Route::post('/cateringBaru', 'UserController@activateCatering');
 

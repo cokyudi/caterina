@@ -37,5 +37,16 @@ class HomeController extends Controller
         return view('cari', $data);
     }
 
-
+    public function cariTerdekat(Request $request)
+    {
+        $lat=$request->lat;
+        $lng=$request->lng;
+        $data['lat']=$lat;
+        $data['lng']=$lng;
+        $data['card'] = Home::select('*')->where('status_catering','=',1)
+                                        ->whereBetween('lat_catering',[$lat-0.1,$lat+0.1])
+                                        ->whereBetween('long_catering',[$lng-0.1,$lng+0.1])->get();
+        $data['title'] = 'Cari "terdekat"';
+        return view('cariTerdekat', $data);
+    }
 }
