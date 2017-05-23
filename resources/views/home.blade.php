@@ -82,8 +82,8 @@
             <div class="modal-body">
                 <form method="post" action="{{ url('/cariTerdekat') }}">
                     {{ csrf_field() }}
-                    <input type="text" id="latMap" name="lat">
-                    <input type="text" id="lngMap" name="lng">
+                    <input type="hidden" id="latMap" name="lat">
+                    <input type="hidden" id="lngMap" name="lng">
                     <button type="submit" class="btn btn-orange">pilih lokasi</button>
                 </form>
                 <div id="map" style="width:100%;height:500px;"></div>

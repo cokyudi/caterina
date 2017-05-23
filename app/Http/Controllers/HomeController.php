@@ -44,8 +44,8 @@ class HomeController extends Controller
         $data['lat']=$lat;
         $data['lng']=$lng;
         $data['card'] = Home::select('*')->where('status_catering','=',1)
-                                        ->whereBetween('lat_catering',[$lat-0.1,$lat+0.1])
-                                        ->whereBetween('long_catering',[$lng-0.1,$lng+0.1])->get();
+                                        ->whereBetween('lat_catering',[$lat-0.3,$lat+0.3])
+                                        ->whereBetween('long_catering',[$lng-0.3,$lng+0.3])->get();
         $data['title'] = 'Cari "terdekat"';
         return view('cariTerdekat', $data);
     }
