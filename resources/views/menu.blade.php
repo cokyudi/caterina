@@ -257,7 +257,10 @@
                             '<th scope="row">' + nomor + '</th>' +
                             '<td class="nama">' + namaItem + '</td>' +
                             '<td class="qty">' +
-                                '<input type="text" value="' + qty + '" id="in-qty" data-harga="' + harga + '" data-qty-satuan="' + qty + '" onkeyup="calcPriceItem(' + idItem + ')">' +
+                                '<input type="text" value="' + qty + '" id="in-qty" name="qty_item[]" form="form-pesan"' +
+                                    'data-harga="' + harga + '"' +
+                                    'data-qty-satuan="' + qty + '"' +
+                                    'onkeyup="calcPriceItem(' + idItem + ')">' +
                             '<td class="sat">' + satuan + '</td>' +
                             '<td>Rp. <span class="harga">' + harga + '</span></td>' +
                         '</tr>'
