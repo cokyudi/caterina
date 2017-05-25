@@ -43,6 +43,21 @@ class UserController extends Controller
     public function profile()
     {
         $data['title'] = 'Profile';
+        $id_user = Auth::user()->id;
+        $data['id_user']= $id_user;
+        $data['profile_user'] = User::find($id_user);
         return view('profile', $data);
+    }
+
+    public function update(Request $request)
+    {
+        $id_user = Auth::user()->id;
+        $user = User::find($id_user);
+        $user->nama_user = $request->get('nama');
+        $user->email = $request->get('email');
+        $user->no_telp = $request->get('telp');
+        $user->save();
+
+        return redirect('/profile');
     }
 }
