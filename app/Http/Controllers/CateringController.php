@@ -14,11 +14,10 @@ class CateringController extends Controller
 {
     public function catering($id)
     {
-        $userId = Auth::user()->id;
         $data['catering'] = User::find($id);
         $data['title'] = $data['catering']->nama_catering;
         $data['menu'] = Menu::where([['status_menu', '1'], ['id_user', $id]])->get();
-        $data['harga'] = $this->calcPrice($data['menu'], $userId);
+        $data['harga'] = $this->calcPrice($data['menu'], $id);
         return view('catering', $data);
     }
 
