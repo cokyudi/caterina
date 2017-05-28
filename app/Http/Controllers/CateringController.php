@@ -14,6 +14,11 @@ class CateringController extends Controller
 {
     public function catering($id)
     {
+        $id_user = Auth::user()->id;
+        if($id==$id_user){
+            return redirect('/dashboard/menu');
+        }
+        
         $data['catering'] = User::find($id);
         $data['title'] = $data['catering']->nama_catering;
         $data['menu'] = Menu::where([['status_menu', '1'], ['id_user', $id]])->get();
