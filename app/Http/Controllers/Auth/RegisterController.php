@@ -70,4 +70,10 @@ class RegisterController extends Controller
             'no_telp' => $data['no_telp'],
         ]);
     }
+
+    public function showRegistrationForm()
+    {
+        $title = 'Register';
+        return view('auth.register', compact('title'));
+    }
 }
