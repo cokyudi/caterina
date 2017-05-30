@@ -36,7 +36,16 @@
                                 <td><input type="text" id="in-qty"></td>
                                 <td><input type="text" id="in-satuan"></td>
                                 <td><input type="text" id="in-harga"></td>
-                                <td><input type="text" id="in-kategori"></td>
+                                <td>
+                                    <select class="browser-default" id="in-kategori">
+                                        <option value="1">Nasi</option>
+                                        <option value="2">Lauk Pauk</option>
+                                        <option value="3">Sayur</option>
+                                        <option value="4">Buah</option>
+                                        <option value="5">Minum</option>
+                                        <option value="6">Snack</option>
+                                    </select>
+                                </td>
                                 <td>
                                     <button type="button" class="btn btn-theme" onclick="addItem()"><i class="icon ion-plus"></i></button>
                                     <input type="hidden" id="in-userId" value="{{ $userId }}">
@@ -50,7 +59,16 @@
                                 <td class="qty">{{ $a->qty }}</td>
                                 <td class="satuan">{{ $a->satuan }}</td>
                                 <td>Rp. <span class="harga">{{ $a->harga }}</span></td>
-                                <td class="kategori">{{ $a->kategori }}</td>
+                                <td class="kategori">
+                                    <select class="browser-default" id="in-kategori" disabled>
+                                        <option value="1" <?= ($a->kategori == 1)?'selected':'' ?>>Nasi</option>
+                                        <option value="2" <?= ($a->kategori == 2)?'selected':'' ?>>Lauk Pauk</option>
+                                        <option value="3" <?= ($a->kategori == 3)?'selected':'' ?>>Sayur</option>
+                                        <option value="4" <?= ($a->kategori == 4)?'selected':'' ?>>Buah</option>
+                                        <option value="5" <?= ($a->kategori == 5)?'selected':'' ?>>Minum</option>
+                                        <option value="6" <?= ($a->kategori == 6)?'selected':'' ?>>Snack</option>
+                                    </select>
+                                </td>
                                 <td>
                                     <a class="blue-text change-value" onclick="changeValue({{$a->id}})"><i class="icon ion-edit"></i></a>
                                     <a class="red-text delete" onclick="deleteItem({{$a->id}})"><i class="icon ion-close"></i></a>
@@ -75,19 +93,18 @@
         var qty = $('#item_' + id + ' .qty')
         var satuan = $('#item_' + id + ' .satuan')
         var harga = $('#item_' + id + ' .harga')
-        var kategori = $('#item_' + id + ' .kategori')
+        var kategori = $('#item_' + id + ' #in-kategori').removeAttr('disabled')
 
         var nama_val = nama.html()
         var qty_val = qty.html()
         var satuan_val = satuan.html()
         var harga_val = harga.html()
-        var kategori_val = kategori.html()
 
         nama.html('<input type="text" value="' + nama_val + '" id="in-nama">')
         qty.html('<input type="text" value="' + qty_val + '" id="in-qty">')
         satuan.html('<input type="text" value="' + satuan_val + '" id="in-satuan">')
         harga.html('<input type="text" value="' + harga_val + '" id="in-harga">')
-        kategori.html('<input type="text" value="' + kategori_val + '" id="in-kategori">')
+
         $('#item_' + id + ' .change-value').hide()
         $('#item_' + id + ' .delete').hide()
         $('#item_' + id + ' .edit').show()
@@ -98,7 +115,7 @@
         var qty = $('#item_' + id + ' .qty')
         var satuan = $('#item_' + id + ' .satuan')
         var harga = $('#item_' + id + ' .harga')
-        var kategori = $('#item_' + id + ' .kategori')
+        var kategori = $('#item_' + id + ' #in-kategori')
 
         var nama_val = $('#item_' + id + ' #in-nama').val()
         var qty_val = $('#item_' + id + ' #in-qty').val()
@@ -133,7 +150,7 @@
                 qty.html(qty_val)
                 satuan.html(satuan_val)
                 harga.html(harga_val)
-                kategori.html(kategori_val)
+                kategori.attr('disabled', '')
                 $('#item_' + id + ' .change-value').show()
                 $('#item_' + id + ' .delete').show()
                 $('#item_' + id + ' .edit').hide()

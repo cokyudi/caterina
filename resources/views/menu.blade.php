@@ -203,8 +203,8 @@
 
     function calcPriceItem(id) {
         var qty = $('#item_' + id + ' #in-qty').val()
-        var qty_satuan = $('#item_' + id + ' input').data('qty-satuan')
-        var harga = $('#item_' + id + ' input').data('harga')
+        var qty_satuan = $('#item_' + id + ' .qty input').data('qty-satuan')
+        var harga = $('#item_' + id + ' .qty input').data('harga')
         var jumlah_harga = harga*(qty/qty_satuan)
 
         $('#item_' + id + ' .harga').html(Math.round(jumlah_harga))
@@ -257,7 +257,10 @@
                             '<th scope="row">' + nomor + '</th>' +
                             '<td class="nama">' + namaItem + '</td>' +
                             '<td class="qty">' +
-                                '<input type="text" value="' + qty + '" id="in-qty" data-harga="' + harga + '" data-qty-satuan="' + qty + '" onkeyup="calcPriceItem(' + idItem + ')">' +
+                                '<input type="text" value="' + qty + '" id="in-qty" name="qty_item[]" form="form-pesan"' +
+                                    'data-harga="' + harga + '"' +
+                                    'data-qty-satuan="' + qty + '"' +
+                                    'onkeyup="calcPriceItem(' + idItem + ')">' +
                             '<td class="sat">' + satuan + '</td>' +
                             '<td>Rp. <span class="harga">' + harga + '</span></td>' +
                         '</tr>'

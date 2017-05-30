@@ -16,6 +16,9 @@ class Home extends Model
         'nama_catering',
         'deskripsi',
         'no_telp_catering',
-        'alamat_catering'
+        'alamat_catering',
+        'long_catering',
+        'lat_catering',
+        'foto_catering'
     ];
 }

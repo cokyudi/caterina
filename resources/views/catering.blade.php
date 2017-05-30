@@ -38,7 +38,7 @@
 
 <div class="container">
     <div class="row">
-        @foreach($menu as $a)
+        @foreach($menu as $key => $a)
             <div class="col-lg-3 col-sm-6 wow fadeIn" data-wow-delay="0.2s">
                 <div class="card">
         <?php if(isset($a->gambarMenu->gambar_menu)){ ?>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="card-block">
                         <h4 class="card-title"><b>{{ $a->nama_menu }}</b></h4>
-                        <p class="card-text green-text text-right"><b>Rp. {{ $a->harga }}</b></p>
+                        <p class="card-text green-text text-right"><b>Rp. {{ $harga[$key] }}</b></p>
                         <div class="read-more text-center" style="display:inherit;">
                             <a href="{{ URL::to('menu/'.$a->id) }}" class="btn btn-theme">lihat menu</a>
                         </div>
