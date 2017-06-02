@@ -37,6 +37,7 @@ Route::get('/cari?q={{pencarian}}', 'HomeController@cari');
 // CATERING - PESANAN
 Route::get('/dashboard/pesanan/', 'Catering\PesananController@index');
 Route::get('/dashboard/pesanan/dikirim/{id}', 'Catering\PesananController@dikirim');
+Route::get('/dashboard/pesanan/detailPesanan/', 'Catering\PesananController@detailPesanan');
 
 // CATERING - MENU
 Route::get('/dashboard/menu/', 'Catering\MenuController@index');

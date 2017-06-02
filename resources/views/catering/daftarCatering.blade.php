@@ -122,4 +122,11 @@ function selectLocation() {
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF73sPtnq3SSTngsgp0erLt4YD2Ur0vtY&callback=myMap"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#mdl-map').on('shown.bs.modal', function(){
+            google.maps.event.trigger(map, "resize");
+        });
+    });
+</script>
 @endsection

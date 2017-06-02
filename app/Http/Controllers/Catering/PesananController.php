@@ -38,4 +38,16 @@ class PesananController extends Controller
         $transaksi->save();
         return redirect('/dashboard/pesanan');
     }
+
+    public function detailPesanan(Request $request)
+    {
+        if($request->ajax()){
+            $id = $request->id;
+            $detail = TransaksiItem::join('item', 'item.id', 'transaksi_item.id_item')->where('transaksi_item.id_transaksi', $id)->get();
+            //return Response::json(array(view('catering.detailPesanan', $detail)));
+            //return var_dump($detail);
+            //return json_encode($detail);
+            return view('catering.detailPesanan', compact('detail'));
+        }
+    }
 }

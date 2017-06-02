@@ -23,9 +23,26 @@
             <h3>Daftar Pesanan Catering Saya</h3>
             <div class="row wow">
                 <div class="col-lg-12 wow fadeIn" data-wow-delay="0.2s">
+
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="50">#</th>
+                                    <th width="150">Nama Menu</th>
+                                    <th width="70">Qty</th>
+                                    <th width="150">Harga</th>
+                                    <th width="100">Tanggal</th>
+                                    <th width="180">Nama pemesan</th>
+                                    <th width="80">Status</th>
+                                    <th width="120">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    <?php $i=1; ?>
                     @foreach($transaksi as $key => $a)
-                        <div class="card">
-                            <div class="card-block">
+                        <!--    <div class="card-block">!-->
                                 <?php
                                 $status = '';
                                 $color = '';
@@ -44,7 +61,45 @@
                                             break;
                                     }
                                 ?>
-                                <h4 class="card-title"><b>{{ $a->nama_menu }} ({{ $a->qty_transaksi }}pcs) - <small><span class="{{$color}}-text">{{$status}}</span></small></b></h4>
+                                <tr>
+                                    <td width="50">{{$i,$i++}}</td>
+                                    <td width="150"><small>{{ $a->nama_menu }}</small></td>
+                                    <td width="70">{{ $a->qty_transaksi }}pcs</td>
+                                    <td width="80">Rp. {{ $a->total_harga*$a->qty_transaksi }}</th>
+                                    <td width="150">{{ $a->tanggal_diambil }}</td>
+                                    <td width="100">{{ $a->nama_user }}</td>
+                                    <td width="80">
+                                        <small><span class="{{$color}}-text">{{$status}}</span></small>
+                                    </td>
+                                    <td width="120">
+                                        <a href="" onclick="detailPesanan({{$a->id_transaksi}})" data-toggle="modal" data-target="#detailPesanan" class="btn btn-theme"><i class="icon ion-eye"></i></a>
+                                    </td>
+                                </tr>
+                        @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- MODAL -->
+                <div class="modal fade" id="detailPesanan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title w-100" id="myModalLabel">Detail Pesanan</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    <div class="detail"></div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                <!--<h4 class="card-title"><b>{{ $a->nama_menu }} ({{ $a->qty_transaksi }}pcs) - <small><span class="{{$color}}-text">{{$status}}</span></small></b></h4>
                                 <p class="card-text-small">{{ $a->nama_user }} - {{ $a->timestamp }}</p>
                                 @foreach($item as $key => $ti)
                                     @if($ti->id_transaksi == $a->id_transaksi)
@@ -68,11 +123,39 @@
                                     </div>
                                 @endif
                             </div>
-                        </div>
-                    @endforeach
+                        </div>!-->
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+
+    function detailPesanan(id){
+
+        var data={
+            id:id
+        };
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method:'GET',
+            url:'/dashboard/pesanan/detailPesanan/',
+            data:data,
+            success: function(result){
+                //window.location.reload(true)
+                $('.detail').html(result)
+            },
+            error: function(result){
+                console.log(result);
+            }
+        })
+    }
+
+</script>
 @endsection
