@@ -25,7 +25,7 @@ Route::get('/catering/{id}', 'CateringController@catering');
 Route::get('/menu/{id}', 'CateringController@menu');
 Route::get('/profile', 'UserController@profile');
 Route::post('/profile/update', 'UserController@update');
-Route::post('/checkout', 'TransaksiController@checkout');
+Route::post('/checkout', 'TransaksiController@addToCart');
 
 Route::get('/pesanan', 'PesananController@index');
 Route::post('/pesanan/bayar', 'PesananController@bayar');
