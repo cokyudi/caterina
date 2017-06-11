@@ -15,7 +15,7 @@ class TransaksiController extends Controller
         $this->middleware('auth');
     }
 
-    public function checkout(Request $request)
+    public function addToCart(Request $request)
     {
         // data transaksi item
         $data_item = [];
