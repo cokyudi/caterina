@@ -44,10 +44,12 @@ class PesananController extends Controller
         if($request->ajax()){
             $id = $request->id;
             $detail = TransaksiItem::join('item', 'item.id', 'transaksi_item.id_item')->where('transaksi_item.id_transaksi', $id)->get();
+            $transaksi = Transaksi::select('pesan')->where('id', $id)->first();
+            //$data['pesanan'] = Transaksi::
             //return Response::json(array(view('catering.detailPesanan', $detail)));
             //return var_dump($detail);
             //return json_encode($detail);
-            return view('catering.detailPesanan', compact('detail'));
+            return view('catering.detailPesanan', compact('detail','transaksi'));
         }
     }
 }

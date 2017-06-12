@@ -84,6 +84,23 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Ada Data yang Masih Kosong !
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('javascript')
@@ -163,40 +180,51 @@
     }
 
     function addItem() {
-        var nama_item = $('#add_item #in-nama').val()
-        var qty = $('#add_item #in-qty').val()
-        var satuan = $('#add_item #in-satuan').val()
-        var harga = $('#add_item #in-harga').val()
-        var kategori = $('#add_item #in-kategori').val()
-        var id_user = $('#add_item #in-userId').val()
-        var _token= "{{ csrf_token() }}"
-        var data = {
-            nama_item:nama_item,
-            harga:harga,
-            qty:qty,
-            satuan:satuan,
-            kategori:kategori,
-            _token:_token,
-            id_user:id_user
+        var inputNama = $('#in-nama').val()
+        var inputQty = $('#in-qty').val()
+        var inputSatuan = $('#in-satuan').val()
+        var inputHarga = $('#in-harga').val()
+        var inputKategori = $('#in-kategori').val()
+
+        if(inputNama==''||inputQty==''||inputSatuan==''||inputHarga==''||inputKategori==''){
+            $('#modalAlert').modal('show')
         }
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+        else {
+            var nama_item = $('#add_item #in-nama').val()
+            var qty = $('#add_item #in-qty').val()
+            var satuan = $('#add_item #in-satuan').val()
+            var harga = $('#add_item #in-harga').val()
+            var kategori = $('#add_item #in-kategori').val()
+            var id_user = $('#add_item #in-userId').val()
+            var _token= "{{ csrf_token() }}"
+            var data = {
+                nama_item:nama_item,
+                harga:harga,
+                qty:qty,
+                satuan:satuan,
+                kategori:kategori,
+                _token:_token,
+                id_user:id_user
             }
-        });
 
-        $.ajax({
-            method:'POST',
-            url:'{{ route("addItem") }}',
-            data:data,
-            success: function(data){
-                window.location.reload(true);
-            },
-            error: function(data){
-                alert("error");
-            }
-        })
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                method:'POST',
+                url:'{{ route("addItem") }}',
+                data:data,
+                success: function(data){
+                    window.location.reload(true);
+                },
+                error: function(data){
+                    alert("error");
+                }
+            })
+        }
     }
 
     function deleteItem(id){

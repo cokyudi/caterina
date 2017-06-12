@@ -5,3 +5,4 @@
     <span id="satuanItem">{{$a->satuan_item}}</span>
 </ol>
 @endforeach
+<span id="satuanItem">Pesan: {{$transaksi->pesan}}</span>
