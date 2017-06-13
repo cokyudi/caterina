@@ -25,6 +25,9 @@
                         <input type="hidden" id="in-userId" value="{{ $userId }}">
                         <input type="text" class="input-custom" id="in-nama-menu" name="nama_menu" value="" style="width:400px" placeholder="Tambah menu makanan...">
                         <button type="button" onclick="addMenu()" class="btn btn-warning" style="margin-top:1px"><i class="icon ion-plus"></i></button>
+                        <div class="col-md-8 wow fadeIn" data-wow-delay="0.2s">
+                            <span class="errorTxt1 red-text text-darken-2"></span>
+                        </div>
                     </form>
                     <div class="section"></div>
                 </div>
@@ -151,30 +154,36 @@
 
 
     function addMenu() {
-        var nama_menu = $('#form-addMenu #in-nama-menu').val()
-        var id_user = $('#form-addMenu #in-userId').val()
-        var _token= "{{ csrf_token() }}"
-        var data = {
-            nama_menu:nama_menu,
-            _token:_token,
-            id_user:id_user
+        var inputNama_menu = $('#in-nama-menu').val()
+        if(inputNama_menu==''){
+            $('.errorTxt1').html('Nama menu tidak boleh kosong !')
         }
-
-        $.ajaxSetup({
-            headers: {'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')}
-        });
-
-        $.ajax({
-            method:'POST',
-            url:'{{ route("addMenu") }}',
-            data:data,
-            success: function(data){
-                window.location.reload(true);
-            },
-            error: function(data){
-                alert("error");
+        else{
+            var nama_menu = $('#form-addMenu #in-nama-menu').val()
+            var id_user = $('#form-addMenu #in-userId').val()
+            var _token= "{{ csrf_token() }}"
+            var data = {
+                nama_menu:nama_menu,
+                _token:_token,
+                id_user:id_user
             }
-        })
+
+            $.ajaxSetup({
+                headers: {'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')}
+            });
+
+            $.ajax({
+                method:'POST',
+                url:'{{ route("addMenu") }}',
+                data:data,
+                success: function(data){
+                    window.location.reload(true);
+                },
+                error: function(data){
+                    alert("error");
+                }
+            })
+        }
     }
 
     function changeValue(id) {

@@ -1,7 +1,8 @@
 @foreach($detail as $a)
-<p>
-    <span id="namaItem">{{$a->nama_item}}</span>-
+<ol>
+    <span id="namaItem">{{$a->nama_item}}</span> -
     <span id="qtyItem">{{$a->qty_item}}</span>
     <span id="satuanItem">{{$a->satuan_item}}</span>
-</p>
+</ol>
 @endforeach
+<span id="satuanItem">Pesan: {{$transaksi->pesan}}</span>
