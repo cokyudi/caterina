@@ -36,6 +36,7 @@
                                         <th width="150">Harga</th>
                                         <th width="100">Tanggal</th>
                                         <th width="180">Nama pemesan</th>
+                                        <th width="180">Alamat</th>
                                         <th width="80">Status</th>
                                         <th width="120">Actions</th>
                                     </tr>
@@ -69,6 +70,7 @@
                                             <td width="80">Rp. {{ $a->total_harga*$a->qty_transaksi }}</th>
                                             <td width="150">{{ $a->tanggal_diambil }}</td>
                                             <td width="100">{{ $a->nama_user }}</td>
+                                            <td width="150">{{ $a->alamat }}</td>
                                             <td width="80">
                                                 <small><span class="{{$color}}-text">{{$status}}</span></small>
                                                 @if($a->status_transaksi == 2)
