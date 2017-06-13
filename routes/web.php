@@ -34,6 +34,10 @@ Route::get('/pesanan/diterima/{id}', 'PesananController@diterima');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/cari?q={{pencarian}}', 'HomeController@cari');
 
+// CATERING - PROFILR
+Route::get('/dashboard/profile', 'UserController@profileCatering');
+Route::post('/dashboard/profile/update_catering', 'UserController@updateCatering');
+
 // CATERING - PESANAN
 Route::get('/dashboard/pesanan/', 'Catering\PesananController@index');
 Route::get('/dashboard/pesanan/dikirim/{id}', 'Catering\PesananController@dikirim');

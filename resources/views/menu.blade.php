@@ -5,49 +5,6 @@
 <div class="container" style="margin-top: 96px">
     <div class="row">
         <div class="col-md-8">
-            <div class="row">
-                <div class="col-md-3">
-                    <img src="{{ asset('img/big_picture.jpg') }}" onclick="openModal();currentSlide(1)" class="hover-shadow" width="100%">
-                </div>
-                <div class="col-md-3">
-                    <img src="{{ asset('img/big_picture.jpg') }}" onclick="openModal();currentSlide(2)" class="hover-shadow" width="100%">
-                </div>
-                <div class="col-md-3">
-                    <img src="{{ asset('img/big_picture.jpg') }}" onclick="openModal();currentSlide(3)" class="hover-shadow" width="100%">
-                </div>
-                <div class="col-md-3">
-                    <img src="{{ asset('img/big_picture.jpg') }}" onclick="openModal();currentSlide(4)" class="hover-shadow" width="100%">
-                </div>
-            </div>
-
-            <div id="myModal" class="modal mdl-gallery">
-                <span class="close cursor" onclick="closeModal()">&times;</span>
-                <div class="modal-content">
-
-                    <div class="mySlides">
-                        <div class="numbertext">1 / 4</div>
-                        <img src="{{ asset('img/big_picture.jpg') }}" style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                        <div class="numbertext">2 / 4</div>
-                        <img src="{{ asset('img/big_picture.jpg') }}" style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                        <div class="numbertext">3 / 4</div>
-                        <img src="{{ asset('img/big_picture.jpg') }}" style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                        <div class="numbertext">4 / 4</div>
-                        <img src="{{ asset('img/big_picture.jpg') }}" style="width:100%">
-                    </div>
-
-                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                </div>
-            </div><br>
             <h3>Item</h3>
             <div class="table-responsive">
                 <div class="card">
@@ -80,21 +37,19 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4" class="text-right"><b>Harga per pcs</b></td>
+                                <td colspan="4" class="text-right"><b>Harga/porsi</b></td>
                                 <td><b>Rp. <span class="harga-menu">{{ $a->harga_menu }}</span></b></td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
-                <button type="button" class="btn btn-theme" data-toggle="modal" data-target="#customItem">
-                    pilih item
-                </button>
+                <button type="button" class="btn btn-theme" data-toggle="modal" data-target="#customItem">custom menu</button>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card">
                 <div class="stylish-color white-text" style="padding: 16px">
-                    <h4><b>Rp. <span class="harga-menu">{{ $a->harga_menu }}</span></b> <small>per pcs</small></h4>
+                    <h4><b>Rp. <span class="harga-menu">{{ $a->harga_menu }}</span></b><small>/porsi</small></h4>
                 </div>
                 <div class="card-block">
                     <form action="{{ URL::to('checkout') }}" method="post" id="form-pesan">
@@ -138,7 +93,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title w-100" id="myModalLabel">CUSTOM MENU</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -188,7 +143,7 @@
                     </div>
                 @endforeach
                 <div class="text-right">
-                    <a class="btn btn-theme" onclick="addItem()">pilih item</a>
+                    <a class="btn btn-theme" onclick="addItem()">custom menu</a>
                 </div>
             </div>
         </div>

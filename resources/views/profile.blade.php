@@ -49,10 +49,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="col-md-4 control-label" for="pass">Password Lama:</label>
                                         <div class="col-md-9">
-                                            <input id="pass" value = "{{ $profile_user->password }}" name="pass" class="form-control input-md"  type="password">
+                                            <input id="pass" name="pass" class="form-control input-md"  type="password">
                                         </div>
                                     </div>
 
@@ -69,9 +69,9 @@
                                         <div class="col-md-9">
                                             <input id="confirmpass" value="" name="confirmpass" class="form-control input-md"  type="password">
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="col-md-4">    
+                                    <div class="col-md-4">
                                         <div class="md-form">
                                             <button type="submit" class="btn btn-lg btn-amber btn-block">Edit</button>
                                         </div>
@@ -79,7 +79,7 @@
                                 </fieldset>
                             </form>
                         </div>
-                    </div>    
+                    </div>
                 </div>
             </div>
         </div>

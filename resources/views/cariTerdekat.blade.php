@@ -49,7 +49,7 @@
                     <h4 class="card-title"><b>{{ $a->nama_catering }}</b></h4>
                     <p class="card-text-small">{{ $a->alamat_catering }}</p>
                     <p class="card-text-small">No Telp: {{ $a->no_telp_catering }}</p>
-                    <p class="card-text">{{ $a->deskripsi }}</p>
+                    <p class="card-text">{{ str_limit($a->deskripsi, $limit = 100, $end = '...') }}</p>
                     <p class="card-text latTujuan" style="display:none">{{ $a->lat_catering }}</p>
                     <p class="card-text lngTujuan" style="display:none">{{ $a->long_catering }}</p>
                     <p class="card-text jarak">km</p>

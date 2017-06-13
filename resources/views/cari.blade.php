@@ -49,7 +49,7 @@
                     <h4 class="card-title"><b>{{ $a->nama_catering }}</b></h4>
                     <p class="card-text-small">{{ $a->alamat_catering }}</p>
                     <p class="card-text-small">No Telp: {{ $a->no_telp_catering }}</p>
-                    <p class="card-text">{{ $a->deskripsi }}</p>
+                    <p class="card-text">{{ str_limit($a->deskripsi, $limit = 100, $end = '...' }}</p>
                     <div class="read-more text-center">
                         <a href="{{ URL::to('catering/'.$a->id) }}" class="btn btn-theme">Lihat catering</a>
                     </div>
