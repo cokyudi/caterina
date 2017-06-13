@@ -71,6 +71,12 @@
                                             <td width="100">{{ $a->nama_user }}</td>
                                             <td width="80">
                                                 <small><span class="{{$color}}-text">{{$status}}</span></small>
+                                                @if($a->status_transaksi == 2)
+                                                    <div class="read-more text-right" style="display:inherit;">
+                                                        <a href="{{ URL::to('dashboard/pesanan/dikirim/'.$a->id_transaksi )}}" class="btn btn-orange btn-sm">dikirim</a>
+                                                    </div>
+                                                @endif
+
                                             </td>
                                             <td width="120">
                                                 <a href="" onclick="detailPesanan({{$a->id_transaksi}})" data-toggle="modal" data-target="#detailPesanan" class="btn btn-theme"><i class="icon ion-eye"></i></a>
@@ -97,6 +103,7 @@
                                 <p>
                                     <div class="detail"></div>
                                 </p>
+
                             </div>
                         </div>
                     </div>
@@ -107,6 +114,36 @@
     </div>
 </div>
 <script>
+
+    function verify() {
+        var kode = $('#in-kode').val()
+        var _token= "{{ csrf_token() }}"
+        var data = {
+            id_transaksi:id_transaksi,
+            kode_transaksi:kode,
+            _token:_token
+        }
+
+        $.ajaxSetup({ headers: {'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')} });
+        $.ajax({
+            method:'POST',
+            url:'{{ URL::to("/pesanan/bayar") }}',
+            data:data,
+            success: function(data){
+                var data = JSON.parse(data)
+                if (data.status == 'success') {
+                    window.location.reload(true);
+                } else {
+                    $('#message').html(data.message)
+                }
+            },
+            error: function(data){
+                alert(data)
+                alert("error");
+            }
+        })
+    }
+
 
     function detailPesanan(id){
 

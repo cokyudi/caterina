@@ -210,18 +210,13 @@
             data.status_menu = val
         }
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')
-            }
-        });
+        $.ajaxSetup({headers: {'X-CSRF-Token': $('meta[name="csrf_token"]').attr('content')}});
 
         $.ajax({
             method:'POST',
             url:'/dashboard/menu/' + id + '/updateMenu',
             data:data,
             success: function(result){
-
                 if (attr == 'nama_menu') {
                     $('#item_' + id + ' .nama_menu').html(val)
                     $('#item_' + id + ' .change-value').show()

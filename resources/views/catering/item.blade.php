@@ -43,7 +43,6 @@
                                         <option value="3">Sayur</option>
                                         <option value="4">Buah</option>
                                         <option value="5">Minum</option>
-                                        <option value="6">Snack</option>
                                     </select>
                                 </td>
                                 <td>
@@ -66,7 +65,6 @@
                                         <option value="3" <?= ($a->kategori == 3)?'selected':'' ?>>Sayur</option>
                                         <option value="4" <?= ($a->kategori == 4)?'selected':'' ?>>Buah</option>
                                         <option value="5" <?= ($a->kategori == 5)?'selected':'' ?>>Minum</option>
-                                        <option value="6" <?= ($a->kategori == 6)?'selected':'' ?>>Snack</option>
                                     </select>
                                 </td>
                                 <td>

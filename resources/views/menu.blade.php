@@ -19,21 +19,23 @@
                             </tr>
                         </thead>
                         <tbody class="item">
-                            @foreach($menu_item as $key => $a)
-                                <tr id="item_{{ $a->id_item }}">
-                                    <input type="hidden" name="id_item[{{ $key }}]" value="{{ $a->id_item }}" form="form-pesan">
-                                    <th scope="row">{{ $key+1 }}</th>
-                                    <td class="nama">{{ $a->nama_item }}</td>
-                                    <td class="qty">
-                                        <input type="text" value="{{ $a->qty_default }}" id="in-qty" name="qty_item[{{$key}}]" form="form-pesan"
-                                            data-harga="{{ $a->harga }}"
-                                            data-qty-satuan="{{ $a->qty }}"
-                                            onkeyup="calcPriceItem({{ $a->id_item }})">
-                                    </td>
-                                    <td class="sat">{{ $a->satuan }}</td>
-                                    <td>Rp. <span class="harga">{{ $a->harga/$a->qty*$a->qty_default }}</span></td>
-                                </tr>
-                            @endforeach
+                            @if(sizeof($menu_item) > 0)
+                                @foreach($menu_item as $key => $a)
+                                    <tr id="item_{{ $a->id_item }}">
+                                        <input type="hidden" name="id_item[{{ $key }}]" value="{{ $a->id_item }}" form="form-pesan">
+                                        <th scope="row">{{ $key+1 }}</th>
+                                        <td class="nama">{{ $a->nama_item }}</td>
+                                        <td class="qty">
+                                            <input type="text" value="{{ $a->qty_default }}" id="in-qty" name="qty_item[{{$key}}]" form="form-pesan"
+                                                data-harga="{{ $a->harga }}"
+                                                data-qty-satuan="{{ $a->qty }}"
+                                                onkeyup="calcPriceItem({{ $a->id_item }})">
+                                        </td>
+                                        <td class="sat">{{ $a->satuan }}</td>
+                                        <td>Rp. <span class="harga">{{ $a->harga/$a->qty*$a->qty_default }}</span></td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                         <tfoot>
                             <tr>
